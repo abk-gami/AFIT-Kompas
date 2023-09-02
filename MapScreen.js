@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import {firebase} from './config';
+import BottomSheet from './BottomSheets';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -162,6 +163,7 @@ const ExploreScreen = () => {
 
   return (
     <View style={styles.container}>
+      <BottomSheet/>
       <MapView
         ref={_map}
         initialRegion={state.region}
