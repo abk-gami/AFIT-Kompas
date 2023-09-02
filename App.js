@@ -3,15 +3,17 @@
 import Test from './test';
 import MapScreen from './MapScreen';
 import Hehe from './hehe';
+import BottomSheet from './BottomSheets';
 
 const App = () => {
   return (
     // <View style={styles.main}>
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#001b7c" barStyle="light-content"/>
-      <MapScreen/>
+      {/* <MapScreen/> */}
       {/* <Test/> */}
       {/* <Hehe /> */}
+      <BottomSheet/>
     </SafeAreaView>
     // </View>
   );
