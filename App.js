@@ -11,9 +11,9 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#001b7c" barStyle="light-content"/>
       {/* <MapScreen/> */}
-      {/* <Test/> */}
+      <Test/>
       {/* <Hehe /> */}
-      <BottomSheet/>
+      {/* <BottomSheet/> */}
     </SafeAreaView>
     // </View>
   );
@@ -28,3 +28,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#fff'
   },
 })
+
+
+
+
