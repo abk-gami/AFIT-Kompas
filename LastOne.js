@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import "react-native-gesture-handler";
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,9 +11,16 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  Button,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import {firebase} from './config';
+// import BottomSheet from './BottomSheets';
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -29,7 +37,8 @@ const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const ExploreScreen = () => {
-  // const theme = useTheme();
+
+  // FireBase
   const [points, setPoints] = useState([]);
     const places =  firebase.firestore().collection('location')
 
@@ -57,8 +66,29 @@ const ExploreScreen = () => {
       fetchMarkers();
     }, []);
 
+    //Bottom Sheet
+    const [isOpen, setIsOpen] = useState(false);
 
+    const bottomSheetModalRef = useRef(null);
+  
+    const snapPoints = [ "25%", "50%", "98%"];
+  
+    function handlePresentModal() {
+      bottomSheetModalRef.current?.present();
+      setTimeout(() => {
+        setIsOpen(true);
+      }, 100);
+    }
+    function closeIt() {
+      bottomSheetModalRef.current?.present();
+      setTimeout(() => {
+        setIsOpen(false);
+        bottomSheetModalRef.current?.dismiss();
+      }, 100);
+    }
+    
 
+    //Categories
   const initialMapState = {
     markers,
     categories: [
@@ -161,7 +191,35 @@ const ExploreScreen = () => {
 
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
+<BottomSheetModalProvider>
+ {/* <View
+  style={[
+    styles.container,
+    { backgroundColor: isOpen ? "#c6aaaa" : "#ff0000b5" },
+  ]}
+>  */}
+  {/* <Button title="Present Modal" /> */}
+  <BottomSheetModal
+    ref={bottomSheetModalRef}
+    index={1}
+    snapPoints={snapPoints}
+    backgroundStyle={{ borderRadius: 30, backgroundColor: '#4e2a2a' }}
+    isVisible={isOpen}
+    onDismiss={() => setIsOpen(false)}
+    enablePanDownToClose={true}
+  >
+    <View style={styles.contentContainer}>
+    <Text>Hello</Text>
+  <Button 
+  title="CLose" onPress={closeIt}
+  />
+    </View>
+  </BottomSheetModal>
+ {/* </View>  */}
+ </BottomSheetModalProvider> 
+
       <MapView
         ref={_map}
         initialRegion={state.region}
@@ -169,6 +227,7 @@ const ExploreScreen = () => {
         provider={PROVIDER_GOOGLE}
         mapType={'satellite'} 
         >
+
         {state.markers.map((marker, index) => {
           const scaleStyle = {
             transform: [
@@ -228,9 +287,11 @@ const ExploreScreen = () => {
         }}
       >
         {state.categories.map((category, index) => (
-          <TouchableOpacity key={index} style={styles.chipsItem}>
+          <TouchableOpacity key={index} style={styles.chipsItem} 
+          
+          >
             {category.icon}
-            <Text>{category.name}</Text>
+            <Text >{category.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -239,7 +300,7 @@ const ExploreScreen = () => {
         horizontal
         pagingEnabled
         scrollEventThrottle={1}
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={true}
         snapToInterval={CARD_WIDTH + 20}
         snapToAlignment="center"
         style={styles.scrollView}
@@ -283,7 +344,7 @@ const ExploreScreen = () => {
           </View>
         ))}
       </Animated.ScrollView>
-    </View>
+      </GestureHandlerRootView>
   );
 };
 
@@ -293,9 +354,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: 15,
+  },
   searchBox: {
     position:'absolute', 
-    marginTop: Platform.OS === 'ios' ? 40 : 30, 
+    // marginTop: Platform.OS === 'ios' ? 40 : 30,
+    marginTop: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
     width: '30%',
