@@ -80,10 +80,10 @@ const ExploreScreen = () => {
       }, 100);
     }
     function closeIt() {
-      bottomSheetModalRef.current?.present();
+      // bottomSheetModalRef.current?.present();
+      bottomSheetModalRef.current?.dismiss();
       setTimeout(() => {
         setIsOpen(false);
-        bottomSheetModalRef.current?.dismiss();
       }, 100);
     }
     
@@ -191,36 +191,12 @@ const ExploreScreen = () => {
 
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView
+    style={{ flex: 1 }}
+    >
 
-<BottomSheetModalProvider>
- {/* <View
-  style={[
-    styles.container,
-    { backgroundColor: isOpen ? "#c6aaaa" : "#ff0000b5" },
-  ]}
->  */}
-  {/* <Button title="Present Modal" /> */}
-  <BottomSheetModal
-    ref={bottomSheetModalRef}
-    index={1}
-    snapPoints={snapPoints}
-    backgroundStyle={{ borderRadius: 30, backgroundColor: '#4e2a2a' }}
-    isVisible={isOpen}
-    onDismiss={() => setIsOpen(false)}
-    enablePanDownToClose={true}
-  >
-    <View style={styles.contentContainer}>
-    <Text>Hello</Text>
-  <Button 
-  title="CLose" onPress={closeIt}
-  />
-    </View>
-  </BottomSheetModal>
- {/* </View>  */}
- </BottomSheetModalProvider> 
 
-      <MapView
+  <MapView
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
@@ -288,7 +264,7 @@ const ExploreScreen = () => {
       >
         {state.categories.map((category, index) => (
           <TouchableOpacity key={index} style={styles.chipsItem} 
-          
+          onPress={handlePresentModal}
           >
             {category.icon}
             <Text >{category.name}</Text>
@@ -344,6 +320,27 @@ const ExploreScreen = () => {
           </View>
         ))}
       </Animated.ScrollView>
+
+
+      <BottomSheetModalProvider>
+ {/* <Button title="Present Modal" /> */}
+ <BottomSheetModal
+    ref={bottomSheetModalRef}
+    index={1}
+    snapPoints={snapPoints}
+    backgroundStyle={{ borderRadius: 30, backgroundColor: '#4e2a2a' }}
+    isVisible={isOpen}
+    onDismiss={() => setIsOpen(false)}
+    enablePanDownToClose={true}
+  >
+    <View style={styles.contentContainer}>
+    <Text>Hello</Text>
+  <Button 
+  title="CLose" onPress={closeIt}
+  />
+    </View>
+  </BottomSheetModal>
+ </BottomSheetModalProvider> 
       </GestureHandlerRootView>
   );
 };
