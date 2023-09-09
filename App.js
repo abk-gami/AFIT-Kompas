@@ -13,7 +13,7 @@ const App = () => {
       <MapScreen/>
       {/* <Test/> */}
       {/* <Hehe /> */}
-      <BottomSheet/>
+      {/* <BottomSheet/> */}
     </SafeAreaView>
     // </View>
   );
