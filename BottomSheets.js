@@ -27,10 +27,10 @@ export default function BottomSheet() {
     }, 100);
   }
   function closeIt() {
-    bottomSheetModalRef.current?.present();
+    // bottomSheetModalRef.current?.present();
+    bottomSheetModalRef.current?.dismiss();
     setTimeout(() => {
       setIsOpen(false);
-      bottomSheetModalRef.current?.dismiss();
     }, 100);
   }
 
