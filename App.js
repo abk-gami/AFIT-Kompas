@@ -3,7 +3,6 @@
 import Test from './test';
 import MapScreen from './MapScreen';
 import Hehe from './hehe';
-// import BottomSheet from './BottomSheets';
 import BottomSheet from './TBS';
 
 const App = () => {
@@ -14,7 +13,7 @@ const App = () => {
       <MapScreen/>
       {/* <Test/> */}
       {/* <Hehe /> */}
-      {/* <BottomSheet/> */}
+      <BottomSheet/>
     </SafeAreaView>
     // </View>
   );
