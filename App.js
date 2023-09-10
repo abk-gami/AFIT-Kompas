@@ -15,7 +15,7 @@ const App = () => {
       {/* <Test/> */}
       {/* <Hehe /> */}
       {/* <BottomSheet/> */}
-      {/* <Ape/> */}
+      <Ape/>
 
     </SafeAreaView>
     // </View>
