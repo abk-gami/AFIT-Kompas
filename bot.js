@@ -1,4 +1,4 @@
-// Sure, here is an example of how to create a React Native app that displays different screens in a bottom sheet when different buttons are pressed:
+// Sure, here is how you can create a React Native app to display different screens in a bottom sheet when different buttons are pressed:
 
 
 import React, { useState } from 'react';
@@ -70,9 +70,8 @@ const Screen3 = () => <Text>This is Screen 3</Text>;
 
 export default App;
 
+// In this code, we have an array of buttons, each of which represents a different screen. When a button is pressed, the `handleButtonPress` function is called, which sets the `screenToShow` state to the component that corresponds to the button that was pressed. The `renderBottomSheet` function then renders the bottom sheet, which contains the `screenToShow` component.
 
-// In this example, we have an array of buttons, each of which represents a different screen. When a button is pressed, the `handleButtonPress` function is called, which sets the `screenToShow` state to the component that corresponds to the button that was pressed. The `renderBottomSheet` function then renders the bottom sheet, which contains the `screenToShow` component.
+// The bottom sheet is closed when the user clicks outside of it or presses the back button.
 
-// This is just a basic example, and you can customize it to fit your needs. For example, you can add a title to the bottom sheet, or you can add a close button. You can also use a different library to create the bottom sheet, such as react-native-modal.
-
-// I hope this helps!
+// I hope this helps! Let me know if you have any other questions.
