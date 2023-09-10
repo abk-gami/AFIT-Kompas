@@ -321,9 +321,9 @@ const ExploreScreen = () => {
         ))}
       </Animated.ScrollView>
 
+ {/* <Button title="Present Modal" /> */}
 
       <BottomSheetModalProvider>
- {/* <Button title="Present Modal" /> */}
  <BottomSheetModal
     ref={bottomSheetModalRef}
     index={1}
