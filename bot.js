@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 import {
   Button,
   View,
-  BottomSheet,
   Text,
+  BottomSheet,
 } from 'react-native';
-import BottomSheet from 'react-native-bottom-sheet';
+// import BottomSheet from 'react-native-bottom-sheet';
 
 const Screen1 = () => {
   return (
@@ -34,7 +34,7 @@ const Screen3 = () => {
   );
 };
 
-const App = () => {
+const Ape = () => {
 
   const openBottomSheet = (screen) => {
     const bottomSheet = new BottomSheet();
@@ -69,5 +69,5 @@ const App = () => {
 
 
 
-export default App;
+export default Ape;
 
