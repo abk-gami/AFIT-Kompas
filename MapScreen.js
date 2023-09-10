@@ -321,14 +321,14 @@ const ExploreScreen = () => {
         ))}
       </Animated.ScrollView>
 
+ {/* <Button title="Present Modal" /> */}
 
       <BottomSheetModalProvider>
- {/* <Button title="Present Modal" /> */}
  <BottomSheetModal
     ref={bottomSheetModalRef}
     index={1}
     snapPoints={snapPoints}
-    backgroundStyle={{ borderRadius: 30, backgroundColor: '#4e2a2a' }}
+    backgroundStyle={{ borderRadius: 30, backgroundColor: '#949ec3' }}
     isVisible={isOpen}
     onDismiss={() => setIsOpen(false)}
     enablePanDownToClose={true}
