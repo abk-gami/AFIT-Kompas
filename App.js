@@ -4,6 +4,7 @@ import Test from './test';
 import MapScreen from './MapScreen';
 import Hehe from './hehe';
 import BottomSheet from './TBS';
+import Bot from './bot';
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
       {/* <Test/> */}
       {/* <Hehe /> */}
       {/* <BottomSheet/> */}
-
+      {/* <Bot/> */}
     </SafeAreaView>
     // </View>
   );
