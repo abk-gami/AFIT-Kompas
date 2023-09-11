@@ -146,3 +146,32 @@ const styles = StyleSheet.create({
         fontWeight: '300'
     }
 })
+
+
+
+// const [points, setPoints] = useState([]);
+//     const places =  firebase.firestore().collection('location')
+
+//     useEffect(() => {
+//       async function fetchMarkers(){
+//           places
+//           .onSnapshot(
+//               querySnapshot => {
+//                   const points = []
+//                   querySnapshot.forEach((doc) => {
+//                       const {title, body, other, latitude, longitude} = doc.data()
+//                       points.push({
+//                           id: doc.id,
+//                           title,
+//                           body,
+//                           other,
+//                           longitude,
+//                           latitude,
+//                       })
+//                   })
+//                   setPoints(points)
+//               }
+//           )
+//       }
+//       fetchMarkers();
+//     }, []);
