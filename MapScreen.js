@@ -77,6 +77,7 @@ const places =  firebase.firestore().collection('location')
   }, [])
 
     //Bottom Sheet
+    //create other ones for these
     const [isOpen, setIsOpen] = useState(false);
     const [currentScreen, setCurrentScreen] = useState(Screen1);
 
