@@ -1,24 +1,14 @@
-// Sure, here is how you can create a bottom sheet that has three different screens that will open when three different buttons are clicked in React Native:
 
-// 1. Install the `react-native-bottom-sheet` library.
+// Sure, here is a corrected code that you can use to create a bottom sheet that has three different screens that will open when three different buttons are clicked in React Native:
 
-// npm install react-native-bottom-sheet
-
-
-// 2. Create a new React Native project.
-
-
-// react-native init my-app
-
-
-// 3. Import the `BottomSheet` component from the `react-native-bottom-sheet` library.
-
-
-// import BottomSheet from 'react-native-bottom-sheet';
-
-
-// 4. Create three screens that will be displayed in the bottom sheet.
-
+JavaScript
+import React, { useState } from 'react';
+import {
+  BottomSheet,
+  Button,
+  View,
+  Text,
+} from 'react-native';
 
 const Screen1 = () => {
   return (
@@ -44,48 +34,36 @@ const Screen3 = () => {
   );
 };
 
-
-// 5. Create a button for each screen.
-
-
 const App = () => {
+  const [currentScreen, setCurrentScreen] = useState(Screen1);
+
+  const openBottomSheet = (screen) => {
+    setCurrentScreen(screen);
+  };
+
   return (
     <View>
-      <Button onPress={() => {
-        openBottomSheet(Screen1);
-      }}>
+      <Button onPress={() => openBottomSheet(Screen1)}>
         Screen 1
       </Button>
-      <Button onPress={() => {
-        openBottomSheet(Screen2);
-      }}>
+      <Button onPress={() => openBottomSheet(Screen2)}>
         Screen 2
       </Button>
-      <Button onPress={() => {
-        openBottomSheet(Screen3);
-      }}>
+      <Button onPress={() => openBottomSheet(Screen3)}>
         Screen 3
       </Button>
+      <BottomSheet
+        initialScreen={currentScreen}
+        onClose={() => setCurrentScreen(null)}
+      >
+        {currentScreen}
+      </BottomSheet>
     </View>
   );
 };
 
-
-// 6. Create a function to open the bottom sheet.
-
-
-const openBottomSheet = (screen) => {
-  const bottomSheet = new BottomSheet();
-  bottomSheet.open({
-    screen: screen,
-  });
-};
-
-
-// 7. Render the app.
-
-
 export default App;
+// Use code with caution. Learn more
+// This code fixes the error by initializing the currentScreen variable before it is used. It also creates a BottomSheet component that has an initialScreen prop that is set to the currentScreen variable. This ensures that the correct screen is displayed when the bottom sheet is opened.
 
-
-// This is just a basic example of how to create a bottom sheet with three different screens in React Native. You can customize the bottom sheet by passing props to the `BottomSheet` component. For more information, please refer to the react-native-bottom-sheet documentation: https://github.com/gorhom/react-native-bottom-sheet.
+// I hope this helps!
