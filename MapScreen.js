@@ -6,6 +6,8 @@ import {
   TextInput,
   View,
   ScrollView,
+  FlatList,
+  Pressable,
   Animated,
   Image,
   TouchableOpacity,
@@ -21,6 +23,9 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Eat from "./screens/Screen1";
+import Lecture from "./screens/Screen2";
+import Hall from "./screens/Screen3";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -39,46 +44,62 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 const ExploreScreen = () => {
 
   // FireBase
-  const [points, setPoints] = useState([]);
-    const places =  firebase.firestore().collection('location')
+  const [users, setUsers] = useState([]);
+  const todoRef = firebase.firestore().collection('location');
 
-    useEffect(() => {
-      async function fetchMarkers(){
-          places
+  
+const [points, setPoints] = useState([]);
+const places =  firebase.firestore().collection('location')
+
+  useEffect(() => {
+      async function fetchData(){
+          todoRef
           .onSnapshot(
               querySnapshot => {
-                  const points = []
+                  const users = []
                   querySnapshot.forEach((doc) => {
                       const {title, body, other, latitude, longitude} = doc.data()
-                      points.push({
+                      users.push({
                           id: doc.id,
                           title,
                           body,
                           other,
-                          longitude,
                           latitude,
+                          longitude,
                       })
                   })
-                  setPoints(points)
+                  setUsers(users)
               }
           )
+
       }
-      fetchMarkers();
-    }, []);
+      fetchData();
+  }, [])
 
     //Bottom Sheet
     const [isOpen, setIsOpen] = useState(false);
+    const [currentScreen, setCurrentScreen] = useState(Screen1);
+
 
     const bottomSheetModalRef = useRef(null);
   
     const snapPoints = [ "25%", "50%", "98%"];
   
     function handlePresentModal() {
+      setCurrentScreen(screen);
       bottomSheetModalRef.current?.present();
       setTimeout(() => {
         setIsOpen(true);
       }, 100);
     }
+
+    const openBottomSheet = (screen) => {
+      setCurrentScreen(screen);
+      bottomSheetModalRef.current?.present();
+      setTimeout(() => {
+        setIsOpen(true);
+      }, 20);
+    };
     function closeIt() {
       // bottomSheetModalRef.current?.present();
       bottomSheetModalRef.current?.dismiss();
@@ -87,6 +108,62 @@ const ExploreScreen = () => {
       }, 100);
     }
     
+//Bottom Sheet Screens
+    const Screen1 = () => {
+      return (
+        <View>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={users}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+    
+    const Screen2 = () => {
+      return (
+        <View>
+           <Button 
+              title="CLose"
+               onPress={closeIt}
+              />
+              <Lecture/>
+        </View>
+      );
+    };
+    
+    const Screen3 = () => {
+      return (
+        <View>
+           <Button 
+              title="CLose"
+               onPress={closeIt}
+              />
+         <Hall/>
+        </View>
+      );
+    };
 
     //Categories
   const initialMapState = {
@@ -262,14 +339,38 @@ const ExploreScreen = () => {
           paddingRight: Platform.OS === 'android' ? 20 : 0
         }}
       >
-        {state.categories.map((category, index) => (
+        {/* {state.categories.map((category, index) => (
           <TouchableOpacity key={index} style={styles.chipsItem} 
           onPress={handlePresentModal}
           >
             {category.icon}
             <Text >{category.name}</Text>
           </TouchableOpacity>
-        ))}
+        ))} */}
+
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen1)}
+        >
+          <Text> Screen 1</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen2)}
+        >
+          <Text> Screen 2</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen3)}
+        >
+          <Text> Screen 3</Text>
+        </TouchableOpacity>
+
+
       </ScrollView>
       <Animated.ScrollView
         ref={_scrollView}
@@ -330,15 +431,18 @@ const ExploreScreen = () => {
     snapPoints={snapPoints}
     backgroundStyle={{ borderRadius: 30, backgroundColor: '#949ec3' }}
     isVisible={isOpen}
+    initialScreen={currentScreen}
+    onClose={() => setCurrentScreen(null)}
     onDismiss={() => setIsOpen(false)}
     enablePanDownToClose={true}
   >
-    <View style={styles.contentContainer}>
+    {/* <View style={styles.contentContainer}>
     <Text>Hello</Text>
   <Button 
   title="CLose" onPress={closeIt}
   />
-    </View>
+    </View> */}
+             {currentScreen}
   </BottomSheetModal>
  </BottomSheetModalProvider> 
       </GestureHandlerRootView>
@@ -468,5 +572,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5
   },
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: 15,
 
+  },
+pressable: {
+    backgroundColor: '#e5e5e5',
+    padding: 15,
+    borderRadius: 15,
+    margin: 5,
+    marginHorizontal: 10,
+},
+innerContainer: {
+    flexDirection:'column',
+    alignItems: 'center',
+},
+title:{
+    fontWeight: 'bold'
+},
+body :{
+    fontWeight: '300'
+}
 });
