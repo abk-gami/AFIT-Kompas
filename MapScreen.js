@@ -189,7 +189,7 @@ const ExploreScreen = () => {
 
     const bottomSheetModalRef = useRef(null);
   
-    const snapPoints = [ "25%", "50%", "98%"];
+    const snapPoints = [ "25%", "50%", "100%"];
   
     // function handlePresentModal() {
     //   setCurrentScreen(screen);
@@ -217,7 +217,8 @@ const ExploreScreen = () => {
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
-        <View>
+        <View >
+          <Text style={styles.bts}>BREAKING NEWS</Text>
          {/* <Button 
               title="CLose"
                onPress={closeIt}
@@ -250,6 +251,7 @@ const ExploreScreen = () => {
     const Screen2 = () => {
       return (
         <View>
+      <Text style={styles.bts}>POPULAR PLACES</Text>
          {/* <Button 
               title="CLose"
                onPress={closeIt}
@@ -282,6 +284,7 @@ const ExploreScreen = () => {
     const Screen3 = () => {
       return (
         <View>
+          <Text style={styles.bts}>LECTURE ROOMS</Text>
          {/* <Button 
               title="CLose"
                onPress={closeIt}
@@ -314,6 +317,7 @@ const ExploreScreen = () => {
     const Screen4 = () => {
       return (
         <View>
+          <Text style={styles.bts}>HOSTELS</Text>
          {/* <Button 
               title="CLose"
                onPress={closeIt}
@@ -346,6 +350,7 @@ const ExploreScreen = () => {
     const Screen5 = () => {
       return (
         <View>
+          <Text style={styles.bts}>DEPARTMENTS</Text>
          {/* <Button 
               title="CLose"
                onPress={closeIt}
@@ -371,6 +376,22 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+        </View>
+      );
+    };
+
+    const Screen6 = () => {
+      return (
+        <View>
+              <View style={styles.searchBox}>
+        <TextInput 
+          placeholder="Search here"
+          placeholderTextColor="#000"
+          autoCapitalize="none"
+          style={{flex:1,padding:0}}
+        />
+        <Ionicons name="ios-search" size={20} />
+      </View>
         </View>
       );
     };
@@ -524,20 +545,14 @@ const ExploreScreen = () => {
           );
         })}
       </MapView>
-      {/* <View style={styles.searchBox}>
-        <TextInput 
-          placeholder="Search here"
-          placeholderTextColor="#000"
-          autoCapitalize="none"
-          style={{flex:1,padding:0}}
-        />
-        <Ionicons name="ios-search" size={20} />
-      </View> */}
-      <TouchableOpacity>
-        <Text>
-        
-        </Text>
+        {/* search button at the top */}
+      <TouchableOpacity
+      onPress={() => openBottomSheet(Screen6)}
+       style={styles.searchBox}>
+      <Ionicons name="ios-search" size={20} />
+        <Text style={styles.text}> Search </Text>
       </TouchableOpacity>
+
       <ScrollView
         horizontal
         scrollEventThrottle={1}
@@ -568,35 +583,35 @@ const ExploreScreen = () => {
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen1)}
         >
-          <Text> Breaking News</Text>
+          <Text style={styles.text}> Breaking News</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen2)}
         >
-          <Text>Popular</Text>
+          <Text style={styles.text}>Popular</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen3)}
         >
-          <Text> Lecture Room</Text>
+          <Text style={styles.text}> Lecture Room</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen4)}
         >
-          <Text>Accomodation</Text>
+          <Text style={styles.text}>Accomodation</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen5)}
         >
-          <Text>Department</Text>
+          <Text style={styles.text}>Department</Text>
         </TouchableOpacity>
 
 
@@ -697,9 +712,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '30%',
     alignSelf:'center',
-    borderRadius: 5,
+    justifyContent: 'center',
+    borderRadius: 10,
     padding: 10,
-    shadowColor: '#ccc',
+    shadowColor: '#001b7c',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
@@ -707,7 +723,7 @@ const styles = StyleSheet.create({
   },
   chipsScrollView: {
     position:'absolute', 
-    top:Platform.OS === 'ios' ? 90 : 80, 
+    top:Platform.OS === 'ios' ? 80 : 65, 
     paddingHorizontal:10
   },
   chipsIcon: {
@@ -726,6 +742,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 10,
+  },
+  text:{
+    fontWeight: 'bold',
+    fontSize: 17
   },
   scrollView: {
     position: "absolute",
@@ -823,5 +843,10 @@ title:{
 },
 body :{
     fontWeight: '300'
+}, 
+bts:{
+  fontWeight: 'bold',
+  fontSize: 17,
+  alignSelf: 'center',
 }
 });
