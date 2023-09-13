@@ -43,23 +43,21 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const ExploreScreen = () => {
 
-  // FireBase
-  const [users, setUsers] = useState([]);
-  const todoRef = firebase.firestore().collection('location');
-
   
-const [points, setPoints] = useState([]);
-const places =  firebase.firestore().collection('location')
+  // FireBase
 
+  //Breaking News
+  const [breaking, setBreaking] = useState([]);
+  const breakingNews = firebase.firestore().collection('BreakingNews');
   useEffect(() => {
       async function fetchData(){
-          todoRef
+          breakingNews
           .onSnapshot(
               querySnapshot => {
-                  const users = []
+                  const breaking = []
                   querySnapshot.forEach((doc) => {
                       const {title, body, other, latitude, longitude} = doc.data()
-                      users.push({
+                      breaking.push({
                           id: doc.id,
                           title,
                           body,
@@ -68,7 +66,115 @@ const places =  firebase.firestore().collection('location')
                           longitude,
                       })
                   })
-                  setUsers(users)
+                  setBreaking(breaking)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+//Popular
+  const [popular, setPopular] = useState([]);
+  const popularPlace = firebase.firestore().collection('Popular');
+  useEffect(() => {
+      async function fetchData(){
+          popularPlace
+          .onSnapshot(
+              querySnapshot => {
+                  const popular = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      popular.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setPopular(popular)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+  //Lecture Room
+  const [lecture, setLecture] = useState([]);
+  const LectureRoom = firebase.firestore().collection('LectureRoom');
+  useEffect(() => {
+      async function fetchData(){
+          LectureRoom
+          .onSnapshot(
+              querySnapshot => {
+                  const lecture = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      lecture.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setLecture(lecture)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+  //Accomodation
+  const [hostel, setHostel] = useState([]);
+  const hostelAccomodation = firebase.firestore().collection('Accomodation');
+  useEffect(() => {
+      async function fetchData(){
+          hostelAccomodation
+          .onSnapshot(
+              querySnapshot => {
+                  const hostel = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      hostel.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setHostel(hostel)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+  //Department
+  const [department, setDepartment] = useState([]);
+  const departmentBuilding = firebase.firestore().collection('Department');
+  useEffect(() => {
+      async function fetchData(){
+          departmentBuilding
+          .onSnapshot(
+              querySnapshot => {
+                  const department = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      department.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setDepartment(department)
               }
           )
 
@@ -77,7 +183,6 @@ const places =  firebase.firestore().collection('location')
   }, [])
 
     //Bottom Sheet
-    //create other ones for these
     const [isOpen, setIsOpen] = useState(false);
     const [currentScreen, setCurrentScreen] = useState(Screen1);
 
@@ -86,13 +191,13 @@ const places =  firebase.firestore().collection('location')
   
     const snapPoints = [ "25%", "50%", "98%"];
   
-    function handlePresentModal() {
-      setCurrentScreen(screen);
-      bottomSheetModalRef.current?.present();
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 100);
-    }
+    // function handlePresentModal() {
+    //   setCurrentScreen(screen);
+    //   bottomSheetModalRef.current?.present();
+    //   setTimeout(() => {
+    //     setIsOpen(true);
+    //   }, 100);
+    // }
 
     const openBottomSheet = (screen) => {
       setCurrentScreen(screen);
@@ -120,7 +225,7 @@ const places =  firebase.firestore().collection('location')
       {/* <Eat/> */}
       <FlatList
         style={{height: '100%'}}
-        data={users}
+        data={breaking}
         numColumns={1}
         renderItem={({item}) => (
             <Pressable
@@ -145,11 +250,31 @@ const places =  firebase.firestore().collection('location')
     const Screen2 = () => {
       return (
         <View>
-           <Button 
+         {/* <Button 
               title="CLose"
                onPress={closeIt}
-              />
-              <Lecture/>
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={popular}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
         </View>
       );
     };
@@ -157,11 +282,95 @@ const places =  firebase.firestore().collection('location')
     const Screen3 = () => {
       return (
         <View>
-           <Button 
+         {/* <Button 
               title="CLose"
                onPress={closeIt}
-              />
-         <Hall/>
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={lecture}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+
+    const Screen4 = () => {
+      return (
+        <View>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={hostel}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+
+    const Screen5 = () => {
+      return (
+        <View>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={department}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
         </View>
       );
     };
@@ -315,7 +524,7 @@ const places =  firebase.firestore().collection('location')
           );
         })}
       </MapView>
-      <View style={styles.searchBox}>
+      {/* <View style={styles.searchBox}>
         <TextInput 
           placeholder="Search here"
           placeholderTextColor="#000"
@@ -323,7 +532,12 @@ const places =  firebase.firestore().collection('location')
           style={{flex:1,padding:0}}
         />
         <Ionicons name="ios-search" size={20} />
-      </View>
+      </View> */}
+      <TouchableOpacity>
+        <Text>
+        
+        </Text>
+      </TouchableOpacity>
       <ScrollView
         horizontal
         scrollEventThrottle={1}
@@ -354,21 +568,35 @@ const places =  firebase.firestore().collection('location')
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen1)}
         >
-          <Text> Screen 1</Text>
+          <Text> Breaking News</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen2)}
         >
-          <Text> Screen 2</Text>
+          <Text>Popular</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen3)}
         >
-          <Text> Screen 3</Text>
+          <Text> Lecture Room</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen4)}
+        >
+          <Text>Accomodation</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen5)}
+        >
+          <Text>Department</Text>
         </TouchableOpacity>
 
 
