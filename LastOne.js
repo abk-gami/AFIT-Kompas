@@ -6,6 +6,8 @@ import {
   TextInput,
   View,
   ScrollView,
+  FlatList,
+  Pressable,
   Animated,
   Image,
   TouchableOpacity,
@@ -21,6 +23,9 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Eat from "./screens/Screen1";
+import Lecture from "./screens/Screen2";
+import Hall from "./screens/Screen3";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -38,47 +43,169 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const ExploreScreen = () => {
 
+  
   // FireBase
-  const [points, setPoints] = useState([]);
-    const places =  firebase.firestore().collection('location')
 
-    useEffect(() => {
-      async function fetchMarkers(){
-          places
+  //Breaking News
+  const [breaking, setBreaking] = useState([]);
+  const breakingNews = firebase.firestore().collection('BreakingNews');
+  useEffect(() => {
+      async function fetchData(){
+          breakingNews
           .onSnapshot(
               querySnapshot => {
-                  const points = []
+                  const breaking = []
                   querySnapshot.forEach((doc) => {
                       const {title, body, other, latitude, longitude} = doc.data()
-                      points.push({
+                      breaking.push({
                           id: doc.id,
                           title,
                           body,
                           other,
-                          longitude,
                           latitude,
+                          longitude,
                       })
                   })
-                  setPoints(points)
+                  setBreaking(breaking)
               }
           )
+
       }
-      fetchMarkers();
-    }, []);
+      fetchData();
+  }, [])
+//Popular
+  const [popular, setPopular] = useState([]);
+  const popularPlace = firebase.firestore().collection('Popular');
+  useEffect(() => {
+      async function fetchData(){
+          popularPlace
+          .onSnapshot(
+              querySnapshot => {
+                  const popular = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      popular.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setPopular(popular)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+  //Lecture Room
+  const [lecture, setLecture] = useState([]);
+  const LectureRoom = firebase.firestore().collection('LectureRoom');
+  useEffect(() => {
+      async function fetchData(){
+          LectureRoom
+          .onSnapshot(
+              querySnapshot => {
+                  const lecture = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      lecture.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setLecture(lecture)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+  //Accomodation
+  const [hostel, setHostel] = useState([]);
+  const hostelAccomodation = firebase.firestore().collection('Accomodation');
+  useEffect(() => {
+      async function fetchData(){
+          hostelAccomodation
+          .onSnapshot(
+              querySnapshot => {
+                  const hostel = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      hostel.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setHostel(hostel)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
+  //Department
+  const [department, setDepartment] = useState([]);
+  const departmentBuilding = firebase.firestore().collection('Department');
+  useEffect(() => {
+      async function fetchData(){
+          departmentBuilding
+          .onSnapshot(
+              querySnapshot => {
+                  const department = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      department.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setDepartment(department)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
 
     //Bottom Sheet
     const [isOpen, setIsOpen] = useState(false);
+    const [currentScreen, setCurrentScreen] = useState(Screen1);
+
 
     const bottomSheetModalRef = useRef(null);
   
-    const snapPoints = [ "25%", "50%", "98%"];
+    const snapPoints = [ "25%", "50%", "100%"];
   
-    function handlePresentModal() {
+    // function handlePresentModal() {
+    //   setCurrentScreen(screen);
+    //   bottomSheetModalRef.current?.present();
+    //   setTimeout(() => {
+    //     setIsOpen(true);
+    //   }, 100);
+    // }
+
+    const openBottomSheet = (screen) => {
+      setCurrentScreen(screen);
       bottomSheetModalRef.current?.present();
       setTimeout(() => {
         setIsOpen(true);
-      }, 100);
-    }
+      }, 20);
+    };
     function closeIt() {
       // bottomSheetModalRef.current?.present();
       bottomSheetModalRef.current?.dismiss();
@@ -87,6 +214,187 @@ const ExploreScreen = () => {
       }, 100);
     }
     
+//Bottom Sheet Screens
+    const Screen1 = () => {
+      return (
+        <View >
+          <Text style={styles.bts}>BREAKING NEWS</Text>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={breaking}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+    
+    const Screen2 = () => {
+      return (
+        <View>
+      <Text style={styles.bts}>POPULAR PLACES</Text>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={popular}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+    
+    const Screen3 = () => {
+      return (
+        <View>
+          <Text style={styles.bts}>LECTURE ROOMS</Text>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={lecture}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+
+    const Screen4 = () => {
+      return (
+        <View>
+          <Text style={styles.bts}>HOSTELS</Text>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={hostel}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+
+    const Screen5 = () => {
+      return (
+        <View>
+          <Text style={styles.bts}>DEPARTMENTS</Text>
+         {/* <Button 
+              title="CLose"
+               onPress={closeIt}
+              /> */}
+      {/* <Eat/> */}
+      <FlatList
+        style={{height: '100%'}}
+        data={department}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress={closeIt}
+            >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+
+    const Screen6 = () => {
+      return (
+        <View>
+              <View style={styles.searchBox}>
+        <TextInput 
+          placeholder="Where You Dey Find?"
+          placeholderTextColor="#000"
+          autoCapitalize="none"
+          style={{flex:1,padding:0}}
+        />
+        <Ionicons name="ios-search" size={20} />
+      </View>
+        </View>
+      );
+    };
 
     //Categories
   const initialMapState = {
@@ -237,15 +545,14 @@ const ExploreScreen = () => {
           );
         })}
       </MapView>
-      <View style={styles.searchBox}>
-        <TextInput 
-          placeholder="Search here"
-          placeholderTextColor="#000"
-          autoCapitalize="none"
-          style={{flex:1,padding:0}}
-        />
-        <Ionicons name="ios-search" size={20} />
-      </View>
+        {/* search button at the top */}
+      <TouchableOpacity
+      onPress={() => openBottomSheet(Screen6)}
+       style={styles.searchBox}>
+      <Ionicons name="ios-search" size={20} color={'#001b7c'} />
+        <Text style={styles.text}> Search </Text>
+      </TouchableOpacity>
+
       <ScrollView
         horizontal
         scrollEventThrottle={1}
@@ -262,14 +569,52 @@ const ExploreScreen = () => {
           paddingRight: Platform.OS === 'android' ? 20 : 0
         }}
       >
-        {state.categories.map((category, index) => (
+        {/* {state.categories.map((category, index) => (
           <TouchableOpacity key={index} style={styles.chipsItem} 
           onPress={handlePresentModal}
           >
             {category.icon}
             <Text >{category.name}</Text>
           </TouchableOpacity>
-        ))}
+        ))} */}
+
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen1)}
+        >
+          <Text style={styles.text}> Breaking News</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen2)}
+        >
+          <Text style={styles.text}>Popular</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen3)}
+        >
+          <Text style={styles.text}> Lecture Rooms</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen4)}
+        >
+          <Text style={styles.text}>Accomodations</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen5)}
+        >
+          <Text style={styles.text}>Departments</Text>
+        </TouchableOpacity>
+
+
       </ScrollView>
       <Animated.ScrollView
         ref={_scrollView}
@@ -328,17 +673,20 @@ const ExploreScreen = () => {
     ref={bottomSheetModalRef}
     index={1}
     snapPoints={snapPoints}
-    backgroundStyle={{ borderRadius: 30, backgroundColor: '#4e2a2a' }}
+    backgroundStyle={{ borderRadius: 30, backgroundColor: '#001b7c' }}
     isVisible={isOpen}
+    initialScreen={currentScreen}
+    onClose={() => setCurrentScreen(null)}
     onDismiss={() => setIsOpen(false)}
     enablePanDownToClose={true}
   >
-    <View style={styles.contentContainer}>
+    {/* <View style={styles.contentContainer}>
     <Text>Hello</Text>
   <Button 
   title="CLose" onPress={closeIt}
   />
-    </View>
+    </View> */}
+             {currentScreen}
   </BottomSheetModal>
  </BottomSheetModalProvider> 
       </GestureHandlerRootView>
@@ -362,11 +710,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
-    width: '30%',
+    width: '90%',
     alignSelf:'center',
-    borderRadius: 5,
+    justifyContent: 'center',
+    borderRadius: 20,
     padding: 10,
-    shadowColor: '#ccc',
+    shadowColor: '#001b7c',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
@@ -374,7 +723,7 @@ const styles = StyleSheet.create({
   },
   chipsScrollView: {
     position:'absolute', 
-    top:Platform.OS === 'ios' ? 90 : 80, 
+    top:Platform.OS === 'ios' ? 80 : 65, 
     paddingHorizontal:10
   },
   chipsIcon: {
@@ -393,6 +742,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 10,
+  },
+  text:{
+    fontWeight: 'bold',
+    fontSize: 17,
+    color: '#001b7c',
   },
   scrollView: {
     position: "absolute",
@@ -468,5 +822,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5
   },
+  contentContainer: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: 15,
 
+  },
+pressable: {
+    backgroundColor: '#e5e5e5',
+    padding: 15,
+    borderRadius: 15,
+    margin: 5,
+    marginHorizontal: 10,
+},
+innerContainer: {
+    flexDirection:'column',
+    alignItems: 'center',
+},
+title:{
+    fontWeight: 'bold'
+},
+body :{
+    fontWeight: '300'
+}, 
+bts:{
+  color:'#fff',
+  fontWeight: 'bold',
+  fontSize: 17,
+  alignSelf: 'center',
+}
 });
