@@ -16,8 +16,10 @@ import {
   Button,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
+import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
 // import BottomSheet from './BottomSheets';
+import Search from "./search";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -45,6 +47,34 @@ const ExploreScreen = () => {
 
   
   // FireBase
+  // search
+  const [users, setUsers] = useState([]);
+  const todoRef = firebase.firestore().collection('location');
+
+  useEffect(() => {
+      async function fetchData(){
+          todoRef
+          .onSnapshot(
+              querySnapshot => {
+                  const users = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      users.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setUsers(users)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
 
   //Breaking News
   const [breaking, setBreaking] = useState([]);
@@ -380,19 +410,26 @@ const ExploreScreen = () => {
       );
     };
 
+    const [input, setInput] = useState("");
     const Screen6 = () => {
       return (
-        <View>
-              <View style={styles.searchBox}>
-        <TextInput 
-          placeholder="Where You Dey Find?"
-          placeholderTextColor="#000"
-          autoCapitalize="none"
-          style={{flex:1,padding:0}}
-        />
-        <Ionicons name="ios-search" size={20} />
-      </View>
-        </View>
+      //   <View>
+      //         <View style={styles.searchBox1}>
+      //   <TextInput 
+      //   value={input}
+      //   onChangeText={(text) => setInput(text)}
+      //     placeholder="Where You Dey Find?"
+      //     placeholderTextColor="#3f4453"
+      //     autoCapitalize="none"
+      //     style={{flex:1,padding:0}}
+      //   />
+      //   <Ionicons name="ios-search" size={20} />
+      // </View>
+
+      // <SearchFilter data={users} input={input} setInput={setInput} closeIt={closeIt} />
+     
+      //   </View>
+      <Search/>
       );
     };
 
@@ -721,6 +758,23 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 10,
   },
+  searchBox1: {
+    // position:'absolute', 
+    // marginTop: Platform.OS === 'ios' ? 40 : 30,
+    marginTop: 10,
+    flexDirection:"row",
+    backgroundColor: '#fff',
+    width: '90%',
+    alignSelf:'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    padding: 10,
+    shadowColor: '#ffffff',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
   chipsScrollView: {
     position:'absolute', 
     top:Platform.OS === 'ios' ? 80 : 65, 
@@ -829,7 +883,7 @@ const styles = StyleSheet.create({
 
   },
 pressable: {
-    backgroundColor: '#e5e5e5',
+    backgroundColor: '#e5e5e5', 
     padding: 15,
     borderRadius: 15,
     margin: 5,

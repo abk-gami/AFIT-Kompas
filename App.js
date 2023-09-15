@@ -6,6 +6,7 @@ import Hehe from './hehe';
 import BottomSheet from './TBS';
 import Bot from './bot';
 // import MapScreen from './LastOne'
+import Search from './search';
 const App = () => {
   return (
     // <View style={styles.main}>
@@ -15,6 +16,7 @@ const App = () => {
       {/* <Test/> */}
       {/* <Hehe /> */}
       {/* <BottomSheet/> */}
+      {/* <Search/> */}
       {/* <Bot/> */}
     </SafeAreaView>
     // </View>
