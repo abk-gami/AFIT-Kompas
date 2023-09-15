@@ -5,7 +5,7 @@ import MapScreen from './MapScreen';
 import Hehe from './hehe';
 import BottomSheet from './TBS';
 import Bot from './bot';
-
+// import MapScreen from './LastOne'
 const App = () => {
   return (
     // <View style={styles.main}>
