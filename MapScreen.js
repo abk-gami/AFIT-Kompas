@@ -385,7 +385,7 @@ const ExploreScreen = () => {
         <View>
               <View style={styles.searchBox}>
         <TextInput 
-          placeholder="Search here"
+          placeholder="Where You Dey Find?"
           placeholderTextColor="#000"
           autoCapitalize="none"
           style={{flex:1,padding:0}}
@@ -549,7 +549,7 @@ const ExploreScreen = () => {
       <TouchableOpacity
       onPress={() => openBottomSheet(Screen6)}
        style={styles.searchBox}>
-      <Ionicons name="ios-search" size={20} />
+      <Ionicons name="ios-search" size={20} color={'#001b7c'} />
         <Text style={styles.text}> Search </Text>
       </TouchableOpacity>
 
@@ -597,21 +597,21 @@ const ExploreScreen = () => {
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen3)}
         >
-          <Text style={styles.text}> Lecture Room</Text>
+          <Text style={styles.text}> Lecture Rooms</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen4)}
         >
-          <Text style={styles.text}>Accomodation</Text>
+          <Text style={styles.text}>Accomodations</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen5)}
         >
-          <Text style={styles.text}>Department</Text>
+          <Text style={styles.text}>Departments</Text>
         </TouchableOpacity>
 
 
@@ -673,7 +673,7 @@ const ExploreScreen = () => {
     ref={bottomSheetModalRef}
     index={1}
     snapPoints={snapPoints}
-    backgroundStyle={{ borderRadius: 30, backgroundColor: '#949ec3' }}
+    backgroundStyle={{ borderRadius: 30, backgroundColor: '#001b7c' }}
     isVisible={isOpen}
     initialScreen={currentScreen}
     onClose={() => setCurrentScreen(null)}
@@ -710,10 +710,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
-    width: '30%',
+    width: '90%',
     alignSelf:'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 20,
     padding: 10,
     shadowColor: '#001b7c',
     shadowOffset: { width: 0, height: 3 },
@@ -745,7 +745,8 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: 'bold',
-    fontSize: 17
+    fontSize: 17,
+    color: '#001b7c',
   },
   scrollView: {
     position: "absolute",
@@ -845,6 +846,7 @@ body :{
     fontWeight: '300'
 }, 
 bts:{
+  color:'#fff',
   fontWeight: 'bold',
   fontSize: 17,
   alignSelf: 'center',
