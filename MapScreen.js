@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect, useRef } from 'react';
+import openMap from 'react-native-open-maps';
 import {
   StyleSheet,
   Text,
@@ -232,18 +233,36 @@ const ExploreScreen = () => {
     const openBottomSheet = (screen) => {
       setCurrentScreen(screen);
       bottomSheetModalRef.current?.present();
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 20);
+      setIsOpen(true);
+      // setTimeout(() => {
+      // }, 20);
     };
     function closeIt() {
       // bottomSheetModalRef.current?.present();
       bottomSheetModalRef.current?.dismiss();
+      // openMap({
+      //   latitude: 37.7833,
+      //   longitude: -122.4167,
+      //   provider: 'google',
+      // });
+      // console.log({department})
       setTimeout(() => {
         setIsOpen(false);
       }, 100);
     }
     
+
+    // const [userLocation, setUserLocation] = React.useState(null);
+
+    // React.useEffect(() => {
+    //   Geolocation.getCurrentPosition((position) => {
+    //     setUserLocation({
+    //       latitude: position.coords.latitude,
+    //       longitude: position.coords.longitude,
+    //     });
+    //   });
+    // }, []);
+
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
@@ -261,7 +280,11 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
+            onPress= {() => {  openMap({
+              latitude: item.latitude,
+              longitude: item.longitude,
+              provider: 'google',
+            });}}
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
@@ -294,8 +317,11 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
-            >
+            onPress= {() => {  openMap({
+              latitude: item.latitude,
+              longitude: item.longitude,
+              provider: 'google',
+            });}}           >             
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -327,8 +353,11 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
-            >
+            onPress= {() => {  openMap({
+              latitude: item.latitude,
+              longitude: item.longitude,
+              provider: 'google',
+            });}}            >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -410,7 +439,6 @@ const ExploreScreen = () => {
       );
     };
 
-    const [input, setInput] = useState("");
     const Screen6 = () => {
       return (
       //   <View>
@@ -627,7 +655,7 @@ const ExploreScreen = () => {
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen2)}
         >
-          <Text style={styles.text}>Popular</Text>
+          <Text style={styles.text}>Popular Places</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
