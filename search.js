@@ -41,7 +41,7 @@ const Search = () => {
     value={input}
     onChangeText={(text) => setInput(text)}
       placeholder="Where You Dey Find?"
-      placeholderTextColor="#3f4453"
+      placeholderTextColor="#717172"
       autoCapitalize="none"
       style={{flex:1,padding:0}}
     />

@@ -56,4 +56,10 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems: 'center',
     },
+    title:{
+        fontWeight: '900'
+    },
+    body :{
+        fontWeight: '500'
+    }, 
 })
