@@ -6007,7 +6007,7 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-query-string@^7.1.3:
+query-string@^7.1.0, query-string@^7.1.3:
   version "7.1.3"
   resolved "https://registry.npmjs.org/query-string/-/query-string-7.1.3.tgz"
   integrity sha512-hh2WYhq4fi8+b+/2Kg9CEge4fDPvHS534aOOvOZeQ3+Vf2mCFsaFBYj0i+iXcAq6I9Vzp5fjMFBlONvayDC1qg==
@@ -6097,6 +6097,11 @@ react-native-bottom-sheet@^1.0.3:
   resolved "https://registry.npmjs.org/react-native-bottom-sheet/-/react-native-bottom-sheet-1.0.3.tgz"
   integrity sha512-FG02lkWYVS5HyqzsQF8edsfWkbjHa01hd8g/eNqrc+sBH1fCoi8GZTS8trHMsLdSGY2lZajb7MYSpM2Ltb3ZsA==
 
+react-native-geolocation-service@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.npmjs.org/react-native-geolocation-service/-/react-native-geolocation-service-5.3.1.tgz"
+  integrity sha512-LTXPtPNmrdhx+yeWG47sAaCgQc3nG1z+HLLHlhK/5YfOgfLcAb9HAkhREPjQKPZOUx8pKZMIpdGFUGfJYtimXQ==
+
 react-native-gesture-handler@*, react-native-gesture-handler@>=1.10.1, react-native-gesture-handler@~2.12.0:
   version "2.12.1"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.12.1.tgz"
@@ -6114,6 +6119,13 @@ react-native-maps@^1.7.1:
   integrity sha512-CHVLzL+Q2jiUGgbt4/vosxVI1SukWyaLGjD62VLgR/wZpnH4Umi9ql1bmKDPWcfj2C1QZwMU0Yc7rXTbvZUIiw==
   dependencies:
     "@types/geojson" "^7946.0.10"
+
+react-native-open-maps@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.npmjs.org/react-native-open-maps/-/react-native-open-maps-0.4.3.tgz"
+  integrity sha512-v0F6NHABCG8/7112baa3LqH29fndxSLb2PGWGTPa/QGoQ3rPiXQgCGsASUQmUpQkrSL5DnnmXo5w2d06Q6euBA==
+  dependencies:
+    query-string "^7.1.0"
 
 react-native-reanimated@*, react-native-reanimated@>=2.2.0, react-native-reanimated@~3.3.0:
   version "3.3.0"
