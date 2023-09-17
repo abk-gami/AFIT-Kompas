@@ -7,17 +7,20 @@ import BottomSheet from './TBS';
 import Bot from './bot';
 // import MapScreen from './LastOne'
 import Search from './search';
+import Locate from './haa';
+
 const App = () => {
   return (
     // <View style={styles.main}>
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#001b7c" barStyle="light-content"/>
-      <MapScreen/>
+      {/* <MapScreen/> */}
       {/* <Test/> */}
       {/* <Hehe /> */}
       {/* <BottomSheet/> */}
       {/* <Search/> */}
       {/* <Bot/> */}
+      <Locate/>
     </SafeAreaView>
     // </View>
   );
