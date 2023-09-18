@@ -1,10 +1,10 @@
 
   import { StyleSheet, View, SafeAreaView, StatusBar } from 'react-native'
-import Test from './test';
+// import Test from './test';
 import MapScreen from './MapScreen';
-import Hehe from './hehe';
-import BottomSheet from './TBS';
-import Bot from './bot';
+// import Hehe from './hehe';
+// import BottomSheet from './TBS';
+// import Bot from './bot';
 // import MapScreen from './LastOne'
 import Search from './search';
 import Locate from './haa';
@@ -14,13 +14,15 @@ const App = () => {
     // <View style={styles.main}>
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#001b7c" barStyle="light-content"/>
-      {/* <MapScreen/> */}
+      <MapScreen/>
+      {/* <Map/> */}
+      {/* <Locatio/> */}
       {/* <Test/> */}
       {/* <Hehe /> */}
       {/* <BottomSheet/> */}
       {/* <Search/> */}
       {/* <Bot/> */}
-      <Locate/>
+      {/* <Locate/> */}
     </SafeAreaView>
     // </View>
   );
