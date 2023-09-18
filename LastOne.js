@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect, useRef } from 'react';
+import openMap from 'react-native-open-maps';
 import {
   StyleSheet,
   Text,
@@ -16,8 +17,13 @@ import {
   Button,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
+import getDirections from 'react-native-google-maps-directions';
+// import MapViewDirections from 'expo'
+import MapViewDirections from 'react-native-maps-directions';
+import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
 // import BottomSheet from './BottomSheets';
+import Search from "./search";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -45,6 +51,34 @@ const ExploreScreen = () => {
 
   
   // FireBase
+  // search
+  const [users, setUsers] = useState([]);
+  const todoRef = firebase.firestore().collection('location');
+
+  useEffect(() => {
+      async function fetchData(){
+          todoRef
+          .onSnapshot(
+              querySnapshot => {
+                  const users = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      users.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                      })
+                  })
+                  setUsers(users)
+              }
+          )
+
+      }
+      fetchData();
+  }, [])
 
   //Breaking News
   const [breaking, setBreaking] = useState([]);
@@ -202,18 +236,36 @@ const ExploreScreen = () => {
     const openBottomSheet = (screen) => {
       setCurrentScreen(screen);
       bottomSheetModalRef.current?.present();
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 20);
+      setIsOpen(true);
+      // setTimeout(() => {
+      // }, 20);
     };
     function closeIt() {
       // bottomSheetModalRef.current?.present();
       bottomSheetModalRef.current?.dismiss();
+      // openMap({
+      //   latitude: 37.7833,
+      //   longitude: -122.4167,
+      //   provider: 'google',
+      // });
+      // console.log({department})
       setTimeout(() => {
         setIsOpen(false);
       }, 100);
     }
     
+
+    // const [userLocation, setUserLocation] = React.useState(null);
+
+    // React.useEffect(() => {
+    //   Geolocation.getCurrentPosition((position) => {
+    //     setUserLocation({
+    //       latitude: position.coords.latitude,
+    //       longitude: position.coords.longitude,
+    //     });
+    //   });
+    // }, []);
+
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
@@ -231,7 +283,11 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
+            onPress= {() => {  openMap({
+              latitude: item.latitude,
+              longitude: item.longitude,
+              provider: 'google',
+            });}}
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
@@ -264,8 +320,11 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
-            >
+            onPress= {() => {  openMap({
+              latitude: item.latitude,
+              longitude: item.longitude,
+              provider: 'google',
+            });}}           >             
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -297,8 +356,11 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
-            >
+            onPress= {() => {  openMap({
+              latitude: item.latitude,
+              longitude: item.longitude,
+              provider: 'google',
+            });}}            >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -382,17 +444,23 @@ const ExploreScreen = () => {
 
     const Screen6 = () => {
       return (
-        <View>
-              <View style={styles.searchBox}>
-        <TextInput 
-          placeholder="Where You Dey Find?"
-          placeholderTextColor="#000"
-          autoCapitalize="none"
-          style={{flex:1,padding:0}}
-        />
-        <Ionicons name="ios-search" size={20} />
-      </View>
-        </View>
+      //   <View>
+      //         <View style={styles.searchBox1}>
+      //   <TextInput 
+      //   value={input}
+      //   onChangeText={(text) => setInput(text)}
+      //     placeholder="Where You Dey Find?"
+      //     placeholderTextColor="#3f4453"
+      //     autoCapitalize="none"
+      //     style={{flex:1,padding:0}}
+      //   />
+      //   <Ionicons name="ios-search" size={20} />
+      // </View>
+
+      // <SearchFilter data={users} input={input} setInput={setInput} closeIt={closeIt} />
+     
+      //   </View>
+      <Search/>
       );
     };
 
@@ -483,35 +551,47 @@ const ExploreScreen = () => {
     return { scale, opacity };
   });
 
-  // const onMarkerPress = (mapEventData) => {
-  //   const markerID = mapEventData._targetInst.return.key;
+  const onMarkerPress = (mapEventData) => {
+    const markerID = mapEventData._targetInst.return.key;
 
-  //   let x = (markerID * CARD_WIDTH) + (markerID * 20); 
-  //   if (Platform.OS === 'ios') {
-  //     x = x - SPACING_FOR_CARD_INSET;
-  //   }
+    let x = (markerID * CARD_WIDTH) + (markerID * 20); 
+    if (Platform.OS === 'ios') {
+      x = x - SPACING_FOR_CARD_INSET;
+    }
 
-  //   _scrollView.current.scrollTo({x: x, y: 0, animated: true});
-  // }
+    _scrollView.current.scrollTo({x: x, y: 0, animated: true});
+  }
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
+//testing
+const [openDirections, setOpenDirections] = useState(false);
+const handleOpenDirections = async () => {
+  const directions = await getDirections({
+    // origin,
+    destination,
+  });
 
+  setOpenDirections(true);
+
+  // Linking.openURL(directions);
+};
+// const origin = { latitude: 10.607917, longitude: 7.441819,};
+const destination = { latitude: 10.608142947760621, longitude: 7.439118488008261, };
 
   return (
     <GestureHandlerRootView
     style={{ flex: 1 }}
     >
-
-
   <MapView
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
         mapType={'satellite'} 
-        >
-
+        showsUserLocation={true}
+        followUserLocation={true}
+                >
         {state.markers.map((marker, index) => {
           const scaleStyle = {
             transform: [
@@ -526,7 +606,7 @@ const ExploreScreen = () => {
           return (
             <Marker key={index}
              coordinate={marker.coordinate}
-            //  onPress={(e)=>onMarkerPress(e)}
+             onPress={(e)=>onMarkerPress(e)}
              title={marker.title} 
              description={marker.description}
              >
@@ -547,7 +627,8 @@ const ExploreScreen = () => {
       </MapView>
         {/* search button at the top */}
       <TouchableOpacity
-      onPress={() => openBottomSheet(Screen6)}
+      // onPress={() => openBottomSheet(Screen6)}
+      onPress={handleOpenDirections}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
         <Text style={styles.text}> Search </Text>
@@ -590,7 +671,7 @@ const ExploreScreen = () => {
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen2)}
         >
-          <Text style={styles.text}>Popular</Text>
+          <Text style={styles.text}>Popular Places</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -710,12 +791,29 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
-    width: '90%',
+    width: '65%',
     alignSelf:'center',
     justifyContent: 'center',
     borderRadius: 20,
     padding: 10,
     shadowColor: '#001b7c',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  searchBox1: {
+    // position:'absolute', 
+    // marginTop: Platform.OS === 'ios' ? 40 : 30,
+    marginTop: 10,
+    flexDirection:"row",
+    backgroundColor: '#fff',
+    width: '90%',
+    alignSelf:'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    padding: 10,
+    shadowColor: '#ffffff',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
@@ -829,7 +927,7 @@ const styles = StyleSheet.create({
 
   },
 pressable: {
-    backgroundColor: '#e5e5e5',
+    backgroundColor: '#e5e5e5', 
     padding: 15,
     borderRadius: 15,
     margin: 5,
