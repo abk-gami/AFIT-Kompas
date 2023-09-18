@@ -17,6 +17,7 @@ import {
   Button,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
+import getDirections from 'react-native-google-maps-directions';
 // import MapViewDirections from 'expo'
 import MapViewDirections from 'react-native-maps-directions';
 import SearchFilter from "./SearchFilter";
@@ -550,23 +551,33 @@ const ExploreScreen = () => {
     return { scale, opacity };
   });
 
-  // const onMarkerPress = (mapEventData) => {
-  //   const markerID = mapEventData._targetInst.return.key;
+  const onMarkerPress = (mapEventData) => {
+    const markerID = mapEventData._targetInst.return.key;
 
-  //   let x = (markerID * CARD_WIDTH) + (markerID * 20); 
-  //   if (Platform.OS === 'ios') {
-  //     x = x - SPACING_FOR_CARD_INSET;
-  //   }
+    let x = (markerID * CARD_WIDTH) + (markerID * 20); 
+    if (Platform.OS === 'ios') {
+      x = x - SPACING_FOR_CARD_INSET;
+    }
 
-  //   _scrollView.current.scrollTo({x: x, y: 0, animated: true});
-  // }
+    _scrollView.current.scrollTo({x: x, y: 0, animated: true});
+  }
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 //testing
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
-const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
+const [openDirections, setOpenDirections] = useState(false);
+const handleOpenDirections = async () => {
+  const directions = await getDirections({
+    // origin,
+    destination,
+  });
+
+  setOpenDirections(true);
+
+  // Linking.openURL(directions);
+};
+// const origin = { latitude: 10.607917, longitude: 7.441819,};
+const destination = { latitude: 10.608142947760621, longitude: 7.439118488008261, };
 
   return (
     <GestureHandlerRootView
@@ -581,11 +592,6 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
         showsUserLocation={true}
         followUserLocation={true}
                 >
-              <MapViewDirections
-    origin={origin}
-    destination={destination}
-    apikey={GOOGLE_MAPS_APIKEY}
-  />
         {state.markers.map((marker, index) => {
           const scaleStyle = {
             transform: [
@@ -600,7 +606,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
           return (
             <Marker key={index}
              coordinate={marker.coordinate}
-            //  onPress={(e)=>onMarkerPress(e)}
+             onPress={(e)=>onMarkerPress(e)}
              title={marker.title} 
              description={marker.description}
              >
@@ -621,7 +627,8 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
       </MapView>
         {/* search button at the top */}
       <TouchableOpacity
-      onPress={() => openBottomSheet(Screen6)}
+      // onPress={() => openBottomSheet(Screen6)}
+      onPress={handleOpenDirections}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
         <Text style={styles.text}> Search </Text>
