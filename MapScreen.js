@@ -17,6 +17,8 @@ import {
   Button,
 } from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
+// import MapViewDirections from 'expo'
+import MapViewDirections from 'react-native-maps-directions';
 import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
 // import BottomSheet from './BottomSheets';
@@ -561,22 +563,29 @@ const ExploreScreen = () => {
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
-
+//testing
+const origin = {latitude: 37.3318456, longitude: -122.0296002};
+const destination = {latitude: 37.771707, longitude: -122.4053769};
+const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
 
   return (
     <GestureHandlerRootView
     style={{ flex: 1 }}
     >
-
-
   <MapView
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
         mapType={'satellite'} 
-        >
-
+        showsUserLocation={true}
+        followUserLocation={true}
+                >
+              <MapViewDirections
+    origin={origin}
+    destination={destination}
+    apikey={GOOGLE_MAPS_APIKEY}
+  />
         {state.markers.map((marker, index) => {
           const scaleStyle = {
             transform: [
@@ -775,7 +784,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
-    width: '90%',
+    width: '65%',
     alignSelf:'center',
     justifyContent: 'center',
     borderRadius: 20,
