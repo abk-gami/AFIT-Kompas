@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native'
 import React from 'react'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const SearchFilter = ({data, input, setInput, closeIt}) => {
   return (
-    <View style={{marginTop:10}}>
+    <ScrollView style={styles.scroll}>
+
+    <View style={{marginTop:10, flex: 1, paddingBottom: 20,}}>
             <FlatList
         data={data}
         renderItem={({item}) => {
@@ -16,12 +19,12 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                         <View style={styles.innerContainer}>
                             <Text style={styles.title}>{item.title}</Text>
                             <Text style={styles.body}>{item.body}</Text>
-        
+                            <Text style={styles.other}>{item.other}</Text>
                         </View>
                     </Pressable>
                 )
             }
-            if(item.title.toLowerCase().includes(input)){
+            if(item.other.toLowerCase().includes(input)){
                 return(
                     <Pressable
                     style={styles.pressable}
@@ -30,7 +33,7 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                         <View style={styles.innerContainer}>
                             <Text style={styles.title}>{item.title}</Text>
                             <Text style={styles.body}>{item.body}</Text>
-        
+                            <Text style={styles.other}>{item.other}</Text>
                         </View>
                     </Pressable>
                 )
@@ -39,6 +42,8 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
         }}
         />
     </View>
+    </ScrollView>
+
   )
 }
 
@@ -57,9 +62,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title:{
-        fontWeight: '900'
+        fontWeight: '900',
+        fontSize: 19
     },
     body :{
         fontWeight: '500'
     }, 
+    other: {
+        color: '#e5e5e5',
+        fontSize: 3,
+    },
+    scroll: {
+        flex: 1,
+        paddingBottom: 50
+    }
 })

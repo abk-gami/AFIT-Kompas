@@ -153,6 +153,8 @@ const ExploreScreen = () => {
                           latitude,
                           longitude,
                       })
+                      printLatitude(latitude)
+                      printLongitude(longitude)
                   })
                   setLecture(lecture)
               }
@@ -161,6 +163,13 @@ const ExploreScreen = () => {
       }
       fetchData();
   }, [])
+  function printLatitude(latitude) {
+    console.log(latitude);
+  }
+  function printLongitude(longitude) {
+    console.log(longitude);
+  }
+  
   //Accomodation
   const [hostel, setHostel] = useState([]);
   const hostelAccomodation = firebase.firestore().collection('Accomodation');
@@ -293,8 +302,8 @@ const ExploreScreen = () => {
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
-                    <Text style={styles.body}>{item.latitude}</Text>
-                    <Text style={styles.body}>{item.longitude}</Text>
+                    {/* <Text style={styles.body}>{item.latitude}</Text>
+                    <Text style={styles.body}>{item.longitude}</Text> */}
 
                 </View>
             </Pressable>
@@ -341,6 +350,27 @@ const ExploreScreen = () => {
     };
     
     const Screen3 = () => {
+      const handleOpenDirections = () => {
+        const route = getDirections({
+          destination,
+        });
+        setOpenDirections(true);
+      };
+      const destination = {latitude: 10.611411749947008, longitude: 7.440024470006231}
+      // const handleOpenDirections = async () => {
+      //   const directions = await getDirections({
+      //     // origin,
+      //     destination,
+      //   });
+      
+        
+      //   setOpenDirections(true);
+      
+      //   // Linking.openURL(directions);
+      // };
+      // const origin = { latitude: 10.607917, longitude: 7.441819,};
+      // const destination = { latitude: {lectureLatitude}, longitude: 7.441819,};
+
       return (
         <View>
           <Text style={styles.bts}>LECTURE ROOMS</Text>
@@ -356,11 +386,13 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress= {() => {  openMap({
-              latitude: item.latitude,
-              longitude: item.longitude,
-              provider: 'google',
-            });}}            >
+            // onPress= {() => {  openMap({
+            //   latitude: item.latitude,
+            //   longitude: item.longitude,
+            //   provider: 'google',
+            // });}}        
+            onPress={handleOpenDirections}
+                >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -577,7 +609,7 @@ const handleOpenDirections = async () => {
   // Linking.openURL(directions);
 };
 // const origin = { latitude: 10.607917, longitude: 7.441819,};
-const destination = { latitude: 10.608142947760621, longitude: 7.439118488008261, };
+const destination = { latitude: 10.609766, longitude: 7.442055, };
 
   return (
     <GestureHandlerRootView
@@ -627,8 +659,8 @@ const destination = { latitude: 10.608142947760621, longitude: 7.439118488008261
       </MapView>
         {/* search button at the top */}
       <TouchableOpacity
-      // onPress={() => openBottomSheet(Screen6)}
-      onPress={handleOpenDirections}
+      onPress={() => openBottomSheet(Screen6)}
+      // onPress={handleOpenDirections}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
         <Text style={styles.text}> Search </Text>
@@ -938,7 +970,8 @@ innerContainer: {
     alignItems: 'center',
 },
 title:{
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 19
 },
 body :{
     fontWeight: '300'

@@ -8,7 +8,8 @@ const Search = () => {
   const [input, setInput] = useState("");
 
   const [users, setUsers] = useState([]);
-  const todoRef = firebase.firestore().collection('location');
+  const todoRef = firebase.firestore().collection('location').orderBy("title", "asc");
+  
 
   useEffect(() => {
       async function fetchData(){
@@ -43,7 +44,7 @@ const Search = () => {
       placeholder="Where You Dey Find?"
       placeholderTextColor="#717172"
       autoCapitalize="none"
-      style={{flex:1,padding:0}}
+      style={{flex:1,padding:0, fontSize: 20}}
     />
     <Ionicons name="ios-search" size={20} />
   </View>
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     // position:'absolute', 
     // marginTop: Platform.OS === 'ios' ? 40 : 30,
     marginTop: 10,
+    marginBottom: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
     width: '90%',
