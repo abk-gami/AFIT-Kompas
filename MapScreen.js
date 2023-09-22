@@ -15,7 +15,9 @@ import {
   Dimensions,
   Platform,
   Button,
+  StatusBar,
 } from "react-native";
+
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import getDirections from 'react-native-google-maps-directions';
 // import MapViewDirections from 'expo'
@@ -615,6 +617,8 @@ const destination = { latitude: 10.609766, longitude: 7.442055, };
     <GestureHandlerRootView
     style={{ flex: 1 }}
     >
+           <StatusBar backgroundColor="#001b7c" barStyle="light-content"/>
+
   <MapView
         ref={_map}
         initialRegion={state.region}
