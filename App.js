@@ -6,7 +6,7 @@
 // import Bot from './bot';
 // import MapScreen from './LastOne'
 import Search from './search';
-import Locate from './haa';
+import OpenGoogleMaps from './haa';
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
