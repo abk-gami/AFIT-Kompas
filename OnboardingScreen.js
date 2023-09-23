@@ -10,7 +10,7 @@ const OnboardingScreen = ({navigation}) => {
     onDone={() => navigation.replace('Maps')}
   pages={[
     {
-      backgroundColor: '#EE4B2B',
+      backgroundColor: '#ef340f',
       image: <Image source={require('./assets/1.png')} style={styles.image} />,
       title: 'A map that enables ease of movement around AFIT',
       subtitle: '....',
@@ -47,9 +47,9 @@ const OnboardingScreen = ({navigation}) => {
     },
     {
       backgroundColor: 'violet',
-      image: <Image source={require('./assets/favicon.png')} style={styles.image} />,
-      title: 'This Project was done by ABK',
-      subtitle: '...',
+      image: <Image source={require('./assets/mark.jpg')} style={styles.image} />,
+      title: 'Made for AFIT students',
+      subtitle: 'By an AFIT student!',
     },
     
   ]}

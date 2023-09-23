@@ -17,7 +17,7 @@ import {
   Button,
   StatusBar,
 } from "react-native";
-
+import { Linking } from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import getDirections from 'react-native-google-maps-directions';
 // import MapViewDirections from 'expo'
@@ -128,6 +128,7 @@ const ExploreScreen = () => {
                           latitude,
                           longitude,
                       })
+                  
                   })
                   setPopular(popular)
               }
@@ -136,6 +137,13 @@ const ExploreScreen = () => {
       }
       fetchData();
   }, [])
+  // const getPopularPlaceLatitudeAndLongitude = (popularPlaceId) => {
+  //   const popularPlace = popular.find((place) => place.id === popularPlaceId);
+  //   return {
+  //     latitude: popularPlace.latitude,
+  //     longitude: popularPlace.longitude,
+  //   };
+  // };
   //Lecture Room
   const [lecture, setLecture] = useState([]);
   const LectureRoom = firebase.firestore().collection('LectureRoom');
@@ -154,10 +162,12 @@ const ExploreScreen = () => {
                           other,
                           latitude,
                           longitude,
-                      })
-                      printLatitude(latitude)
-                      printLongitude(longitude)
-                  })
+                        })
+                        const lectureLatitude = doc.data().latitude;
+                        const lectureLongitude = doc.data().longitude;
+                      // printTitle(title)
+                      // printBody(body)
+                    })
                   setLecture(lecture)
               }
           )
@@ -165,12 +175,13 @@ const ExploreScreen = () => {
       }
       fetchData();
   }, [])
-  function printLatitude(latitude) {
-    console.log(latitude);
-  }
-  function printLongitude(longitude) {
-    console.log(longitude);
-  }
+
+  // function printTitle(title) {
+  //   // console.log(title);
+  // }
+  // function printBody(body) {
+  //   // console.log(body);
+  // }
   
   //Accomodation
   const [hostel, setHostel] = useState([]);
@@ -234,7 +245,7 @@ const ExploreScreen = () => {
 
     const bottomSheetModalRef = useRef(null);
   
-    const snapPoints = [ "25%", "50%", "100%"];
+    const snapPoints = [ "35%",  '75%', "100%"];
   
     // function handlePresentModal() {
     //   setCurrentScreen(screen);
@@ -295,10 +306,13 @@ const ExploreScreen = () => {
             <Pressable
             style={styles.pressable}
             onPress= {() => {  openMap({
-              latitude: item.latitude,
-              longitude: item.longitude,
+              // zoom: 23,
+              mapType: 'satellite',
               provider: 'google',
+              end: item.longitude,
+              travelType: 'drive'
             });}}
+
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
@@ -314,6 +328,64 @@ const ExploreScreen = () => {
         </View>
       );
     };
+
+    // const Screen2 = () => {
+    //   const [userLocation, setUserLocation] = useState(null);
+    
+    //   useEffect(() => {
+    //     async function getUserLocation() {
+    //       const location = await navigator.geolocation.getCurrentPosition();
+    //       setUserLocation({
+    //         latitude: location.coords.latitude,
+    //         longitude: location.coords.longitude,
+    //       });
+    //     }
+    
+    //     getUserLocation();
+    //   }, []);
+    
+    //   const handleOpenDirections = async (destination) => {
+    //     const directions = await getDirections({
+    //       origin: userLocation,
+    //       destination,
+    //     });
+    
+    //     // Open the directions app with the calculated directions.
+    //   };
+    //   return (
+    //     <View>
+    //       <Text style={styles.bts}>POPULAR PLACES</Text>
+    //       {/* <Button 
+    //               title="CLose"
+    //                onPress={closeIt}
+    //               /> */}
+    //       {/* <Eat/> */}
+    //       <FlatList
+    //         style={{ height: "100%" }}
+    //         data={popular}
+    //         numColumns={1}
+    //         renderItem={({ item }) => (
+    //           <Pressable
+    //             style={styles.pressable}
+    //             onPress={() => {
+    //               handleOpenDirections({
+    //                 latitude: item.latitude,
+    //                 longitude: item.longitude,
+    //               });
+    //             }}
+    //           >
+    //             <View style={styles.innerContainer}>
+    //               <Text style={styles.title}>{item.title}</Text>
+    //               <Text style={styles.body}>{item.body}</Text>
+    //               <Text style={styles.body}>{item.other}</Text>
+    //             </View>
+    //           </Pressable>
+    //         )}
+    //       />
+    //     </View>
+    //   );
+    // };
+    
     
     const Screen2 = () => {
       return (
@@ -331,11 +403,22 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress= {() => {  openMap({
-              latitude: item.latitude,
-              longitude: item.longitude,
-              provider: 'google',
-            });}}           >             
+            onPress= {() => {  getDirections({
+              latitude: lat ,
+              longitude: lon,
+              // provider: 'google',
+            });
+            const lat = item.latitude
+            const lon = item.longitude
+            setOpenDirections(true);
+            }
+          }      
+          // onPress= {() => {  openMap({
+          //   latitude: item.latitude,
+          //   longitude: item.longitude,
+          //   provider: 'google',
+          // });}}
+          >             
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -352,13 +435,44 @@ const ExploreScreen = () => {
     };
     
     const Screen3 = () => {
-      const handleOpenDirections = () => {
-        const route = getDirections({
-          destination,
+      // const { latitude, longitude } = getPopularPlaceLatitudeAndLongitude('popularPlace1');
+
+      // const handleOpenDirections = () => {
+      //   const directions = getDirections({
+      // destination,
+      //   });
+      //   setOpenDirections(true);
+      // };
+      const handleOpenDirections = async (popularPlaceId) => {
+        const popularPlace = await popularPlace.doc(popularPlaceId).get();
+        const latitude = popularPlace.get('latitude');
+        const longitude = popularPlace.get('longitude');
+      
+        const directions = await getDirections({
+          destination: {
+            latitude,
+            longitude,
+          },
         });
-        setOpenDirections(true);
+      
+        // Open the directions app with the calculated directions.
       };
-      const destination = {latitude: 10.611411749947008, longitude: 7.440024470006231}
+      // Linking.openURL(directions);
+      // const destination = {latitude: latitude , longitude: longitude}
+      // const destination = {latitude: 10.611411749947008 , longitude: 7.440024470006231}
+      // const openGoogleMapsDirections = async () => {
+      //   // const directionsUrl = 'google.navigation:q=' + (destination);
+      //   const directionsUrl = `google.navigation:q=${destination}`
+      //   const supported = await Linking.canOpenURL(directionsUrl);
+        
+      //   if (supported) {
+      //     Linking.openURL(directionsUrl);
+      //   } else {
+      //     console.log('Cannot open Google Maps app');
+      //   }
+      // };
+      // const destination = 'Googleplex, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA';
+
       // const handleOpenDirections = async () => {
       //   const directions = await getDirections({
       //     // origin,
@@ -598,20 +712,20 @@ const ExploreScreen = () => {
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
-//testing
+// testing
 const [openDirections, setOpenDirections] = useState(false);
-const handleOpenDirections = async () => {
-  const directions = await getDirections({
-    // origin,
-    destination,
-  });
+// const handleOpenDirections = async () => {
+//   const directions = await getDirections({
+//     // origin,
+//     destination,
+//   });
 
-  setOpenDirections(true);
+//   setOpenDirections(true);
 
-  // Linking.openURL(directions);
-};
+//   // Linking.openURL(directions);
+// };
 // const origin = { latitude: 10.607917, longitude: 7.441819,};
-const destination = { latitude: 10.609766, longitude: 7.442055, };
+// const destination = { latitude: 10.609766, longitude: 7.442055, };
 
   return (
     <GestureHandlerRootView
@@ -937,11 +1051,10 @@ const styles = StyleSheet.create({
     // width: 8,
     // height: 8,
     // borderRadius: 4,
-    // backgroundColor: "red",
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: "#ff000092",
+    backgroundColor: "#ff0000b5",
   },
   ring: {
     // width: 24,
