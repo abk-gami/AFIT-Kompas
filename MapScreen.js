@@ -31,9 +31,6 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Eat from "./screens/Screen1";
-import Lecture from "./screens/Screen2";
-import Hall from "./screens/Screen3";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -137,13 +134,7 @@ const ExploreScreen = () => {
       }
       fetchData();
   }, [])
-  // const getPopularPlaceLatitudeAndLongitude = (popularPlaceId) => {
-  //   const popularPlace = popular.find((place) => place.id === popularPlaceId);
-  //   return {
-  //     latitude: popularPlace.latitude,
-  //     longitude: popularPlace.longitude,
-  //   };
-  // };
+
   //Lecture Room
   const [lecture, setLecture] = useState([]);
   const LectureRoom = firebase.firestore().collection('LectureRoom');
@@ -163,8 +154,6 @@ const ExploreScreen = () => {
                           latitude,
                           longitude,
                         })
-                        const lectureLatitude = doc.data().latitude;
-                        const lectureLongitude = doc.data().longitude;
                       // printTitle(title)
                       // printBody(body)
                     })
@@ -247,13 +236,6 @@ const ExploreScreen = () => {
   
     const snapPoints = [ "35%",  '75%', "100%"];
   
-    // function handlePresentModal() {
-    //   setCurrentScreen(screen);
-    //   bottomSheetModalRef.current?.present();
-    //   setTimeout(() => {
-    //     setIsOpen(true);
-    //   }, 100);
-    // }
 
     const openBottomSheet = (screen) => {
       setCurrentScreen(screen);
@@ -262,42 +244,21 @@ const ExploreScreen = () => {
       // setTimeout(() => {
       // }, 20);
     };
-    function closeIt() {
-      // bottomSheetModalRef.current?.present();
-      bottomSheetModalRef.current?.dismiss();
-      // openMap({
-      //   latitude: 37.7833,
-      //   longitude: -122.4167,
-      //   provider: 'google',
-      // });
-      // console.log({department})
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 100);
-    }
+    // function closeIt() {
+    //   bottomSheetModalRef.current?.dismiss();
+    //   setTimeout(() => {
+    //     setIsOpen(false);
+    //   }, 100);
+    // }
     
 
-    // const [userLocation, setUserLocation] = React.useState(null);
 
-    // React.useEffect(() => {
-    //   Geolocation.getCurrentPosition((position) => {
-    //     setUserLocation({
-    //       latitude: position.coords.latitude,
-    //       longitude: position.coords.longitude,
-    //     });
-    //   });
-    // }, []);
 
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
         <View >
           <Text style={styles.bts}>BREAKING NEWS</Text>
-         {/* <Button 
-              title="CLose"
-               onPress={closeIt}
-              /> */}
-      {/* <Eat/> */}
       <FlatList
         style={{height: '100%'}}
         data={breaking}
@@ -310,7 +271,7 @@ const ExploreScreen = () => {
               mapType: 'satellite',
               provider: 'google',
               end: item.longitude,
-              travelType: 'drive'
+              travelType: 'walk'
             });}}
 
             >
@@ -318,8 +279,6 @@ const ExploreScreen = () => {
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
-                    {/* <Text style={styles.body}>{item.latitude}</Text>
-                    <Text style={styles.body}>{item.longitude}</Text> */}
 
                 </View>
             </Pressable>
@@ -329,73 +288,12 @@ const ExploreScreen = () => {
       );
     };
 
-    // const Screen2 = () => {
-    //   const [userLocation, setUserLocation] = useState(null);
-    
-    //   useEffect(() => {
-    //     async function getUserLocation() {
-    //       const location = await navigator.geolocation.getCurrentPosition();
-    //       setUserLocation({
-    //         latitude: location.coords.latitude,
-    //         longitude: location.coords.longitude,
-    //       });
-    //     }
-    
-    //     getUserLocation();
-    //   }, []);
-    
-    //   const handleOpenDirections = async (destination) => {
-    //     const directions = await getDirections({
-    //       origin: userLocation,
-    //       destination,
-    //     });
-    
-    //     // Open the directions app with the calculated directions.
-    //   };
-    //   return (
-    //     <View>
-    //       <Text style={styles.bts}>POPULAR PLACES</Text>
-    //       {/* <Button 
-    //               title="CLose"
-    //                onPress={closeIt}
-    //               /> */}
-    //       {/* <Eat/> */}
-    //       <FlatList
-    //         style={{ height: "100%" }}
-    //         data={popular}
-    //         numColumns={1}
-    //         renderItem={({ item }) => (
-    //           <Pressable
-    //             style={styles.pressable}
-    //             onPress={() => {
-    //               handleOpenDirections({
-    //                 latitude: item.latitude,
-    //                 longitude: item.longitude,
-    //               });
-    //             }}
-    //           >
-    //             <View style={styles.innerContainer}>
-    //               <Text style={styles.title}>{item.title}</Text>
-    //               <Text style={styles.body}>{item.body}</Text>
-    //               <Text style={styles.body}>{item.other}</Text>
-    //             </View>
-    //           </Pressable>
-    //         )}
-    //       />
-    //     </View>
-    //   );
-    // };
     
     
     const Screen2 = () => {
       return (
         <View>
       <Text style={styles.bts}>POPULAR PLACES</Text>
-         {/* <Button 
-              title="CLose"
-               onPress={closeIt}
-              /> */}
-      {/* <Eat/> */}
       <FlatList
         style={{height: '100%'}}
         data={popular}
@@ -403,28 +301,18 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress= {() => {  getDirections({
-              latitude: lat ,
-              longitude: lon,
-              // provider: 'google',
-            });
-            const lat = item.latitude
-            const lon = item.longitude
-            setOpenDirections(true);
-            }
-          }      
-          // onPress= {() => {  openMap({
-          //   latitude: item.latitude,
-          //   longitude: item.longitude,
-          //   provider: 'google',
-          // });}}
+            onPress= {() => {  openMap({
+              // zoom: 23,
+              mapType: 'satellite',
+              provider: 'google',
+              end: item.latitude,
+              travelType: 'walk'
+            });}}      
           >             
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
-                    <Text style={styles.body}>{item.latitude}</Text>
-                    <Text style={styles.body}>{item.longitude}</Text>
 
                 </View>
             </Pressable>
@@ -435,57 +323,6 @@ const ExploreScreen = () => {
     };
     
     const Screen3 = () => {
-      // const { latitude, longitude } = getPopularPlaceLatitudeAndLongitude('popularPlace1');
-
-      // const handleOpenDirections = () => {
-      //   const directions = getDirections({
-      // destination,
-      //   });
-      //   setOpenDirections(true);
-      // };
-      const handleOpenDirections = async (popularPlaceId) => {
-        const popularPlace = await popularPlace.doc(popularPlaceId).get();
-        const latitude = popularPlace.get('latitude');
-        const longitude = popularPlace.get('longitude');
-      
-        const directions = await getDirections({
-          destination: {
-            latitude,
-            longitude,
-          },
-        });
-      
-        // Open the directions app with the calculated directions.
-      };
-      // Linking.openURL(directions);
-      // const destination = {latitude: latitude , longitude: longitude}
-      // const destination = {latitude: 10.611411749947008 , longitude: 7.440024470006231}
-      // const openGoogleMapsDirections = async () => {
-      //   // const directionsUrl = 'google.navigation:q=' + (destination);
-      //   const directionsUrl = `google.navigation:q=${destination}`
-      //   const supported = await Linking.canOpenURL(directionsUrl);
-        
-      //   if (supported) {
-      //     Linking.openURL(directionsUrl);
-      //   } else {
-      //     console.log('Cannot open Google Maps app');
-      //   }
-      // };
-      // const destination = 'Googleplex, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA';
-
-      // const handleOpenDirections = async () => {
-      //   const directions = await getDirections({
-      //     // origin,
-      //     destination,
-      //   });
-      
-        
-      //   setOpenDirections(true);
-      
-      //   // Linking.openURL(directions);
-      // };
-      // const origin = { latitude: 10.607917, longitude: 7.441819,};
-      // const destination = { latitude: {lectureLatitude}, longitude: 7.441819,};
 
       return (
         <View>
@@ -507,7 +344,13 @@ const ExploreScreen = () => {
             //   longitude: item.longitude,
             //   provider: 'google',
             // });}}        
-            onPress={handleOpenDirections}
+            onPress= {() => {  openMap({
+              // zoom: 23,
+              mapType: 'satellite',
+              provider: 'google',
+              end: item.latitude,
+              travelType: 'walk'
+            });}} 
                 >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
@@ -540,8 +383,13 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
-            >
+            onPress= {() => {  openMap({
+              // zoom: 23,
+              mapType: 'satellite',
+              provider: 'google',
+              end: item.latitude,
+              travelType: 'walk'
+            });}}             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
@@ -573,8 +421,13 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress={closeIt}
-            >
+            onPress= {() => {  openMap({
+              // zoom: 23,
+              mapType: 'satellite',
+              provider: 'google',
+              end: item.latitude,
+              travelType: 'walk'
+            });}}             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>

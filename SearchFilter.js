@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
+import openMap from 'react-native-open-maps';
+
 
 const SearchFilter = ({data, input, setInput, closeIt}) => {
   return (
@@ -14,8 +16,12 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                 return(
                     <Pressable
                     style={styles.pressable}
-                    onPress={closeIt}
-                    >
+                    onPress= {() => {  openMap({
+                        mapType: 'satellite',
+                        provider: 'google',
+                        end: item.latitude,
+                        travelType: 'walk'
+                      });}}                     >
                         <View style={styles.innerContainer}>
                             <Text style={styles.title}>{item.title}</Text>
                             <Text style={styles.body}>{item.body}</Text>
