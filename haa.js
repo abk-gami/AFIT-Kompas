@@ -83,44 +83,48 @@
 //API Key: AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8
 
 
-import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import * as Location from 'expo-location'
-import { MapView, MapViewDirections } from 'expo';
-const Locate = () => {
-  const [origin, setOrigin] = useState(null);
-  const [destination, setDestination] = useState(null);
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
+// import React, { useState, useEffect } from 'react';
+// import { StyleSheet } from 'react-native';
+// import * as Location from 'expo-location'
+// import { MapView, MapViewDirections } from 'expo';
+// const Locate = () => {
+//   const [origin, setOrigin] = useState(null);
+//   const [destination, setDestination] = useState(null);
+//   const GOOGLE_MAPS_APIKEY = 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8';
 
-  useEffect(() => {
-    // Get the user's current location.
-    navigator.geolocation.getCurrentPosition((position) => {
-      setOrigin({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
-  }, []);
+//   useEffect(() => {
+//     // Get the user's current location.
+//     navigator.geolocation.getCurrentPosition((position) => {
+//       setOrigin({
+//         latitude: position.coords.latitude,
+//         longitude: position.coords.longitude,
+//       });
+//     });
+//   }, []);
 
-  // Set the destination location.
-  const setDestinationCallback = (newDestination) => {
-    setDestination(newDestination);
-  };
+//   // Set the destination location.
+//   const setDestinationCallback = (newDestination) => {
+//     setDestination(newDestination);
+//   };
 
-  return (
-    <MapView
-      style={{ height: 300, width: 300 }}
-      showsUserLocation={true}
-    >
-      {origin && destination && (
-        <MapViewDirections
-          origin={origin}
-          destination={destination}
-          apikey= 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8'
-        />
-      )}
-    </MapView>
-  );
+//   return (
+//     <MapView
+//       style={{ height: 300, width: 300 }}
+//       showsUserLocation={true}
+//     >
+//       {origin && destination && (
+//         <MapViewDirections
+//           origin={origin}
+//           destination={destination}
+//           apikey= 'AIzaSyCYvMpmVhFc0ydILEuXGJNYNGFnBoKPCL8'
+//         />
+//       )}
+//     </MapView>
+//   );
  
-};
-export default Locate;
+// };
+// export default Locate;
+
+
+
+
