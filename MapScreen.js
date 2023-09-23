@@ -171,7 +171,35 @@ const ExploreScreen = () => {
   // function printBody(body) {
   //   // console.log(body);
   // }
-  
+  // Eatery
+  const [eatery, setEatery] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const Restaurant = firebase.firestore().collection('Eatery');
+  useEffect(() => {
+      async function fetchData(){
+          Restaurant
+          .onSnapshot(
+              querySnapshot => {
+                  const eatery = []
+                  querySnapshot.forEach((doc) => {
+                      const {title, body, other, latitude, longitude} = doc.data()
+                      eatery.push({
+                          id: doc.id,
+                          title,
+                          body,
+                          other,
+                          latitude,
+                          longitude,
+                        })
+                    })
+                  setEatery(eatery)
+              }
+          )
+
+      }
+      fetchData();
+      setIsLoading(false);
+  }, [])
   //Accomodation
   const [hostel, setHostel] = useState([]);
   const hostelAccomodation = firebase.firestore().collection('Accomodation');
@@ -327,11 +355,6 @@ const ExploreScreen = () => {
       return (
         <View>
           <Text style={styles.bts}>LECTURE ROOMS</Text>
-         {/* <Button 
-              title="CLose"
-               onPress={closeIt}
-              /> */}
-      {/* <Eat/> */}
       <FlatList
         style={{height: '100%'}}
         data={lecture}
@@ -339,11 +362,6 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            // onPress= {() => {  openMap({
-            //   latitude: item.latitude,
-            //   longitude: item.longitude,
-            //   provider: 'google',
-            // });}}        
             onPress= {() => {  openMap({
               // zoom: 23,
               mapType: 'satellite',
@@ -356,8 +374,42 @@ const ExploreScreen = () => {
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
-                    <Text style={styles.body}>{item.latitude}</Text>
-                    <Text style={styles.body}>{item.longitude}</Text>
+
+                </View>
+            </Pressable>
+        )}
+        />
+        </View>
+      );
+    };
+    const Screen7 = () => {
+
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+      return (
+        <View>
+          <Text style={styles.bts}>EATERY</Text>
+      <FlatList
+        style={{height: '100%'}}
+        data={eatery}
+        numColumns={1}
+        renderItem={({item}) => (
+            <Pressable
+            style={styles.pressable}
+            onPress= {() => {  openMap({
+              // zoom: 23,
+              mapType: 'satellite',
+              provider: 'google',
+              end: item.latitude,
+              travelType: 'walk'
+            });}} 
+                >
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.body}>{item.body}</Text>
+                    <Text style={styles.body}>{item.other}</Text>
 
                 </View>
             </Pressable>
@@ -371,11 +423,6 @@ const ExploreScreen = () => {
       return (
         <View>
           <Text style={styles.bts}>HOSTELS</Text>
-         {/* <Button 
-              title="CLose"
-               onPress={closeIt}
-              /> */}
-      {/* <Eat/> */}
       <FlatList
         style={{height: '100%'}}
         data={hostel}
@@ -394,8 +441,6 @@ const ExploreScreen = () => {
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
-                    <Text style={styles.body}>{item.latitude}</Text>
-                    <Text style={styles.body}>{item.longitude}</Text>
 
                 </View>
             </Pressable>
@@ -409,11 +454,6 @@ const ExploreScreen = () => {
       return (
         <View>
           <Text style={styles.bts}>DEPARTMENTS</Text>
-         {/* <Button 
-              title="CLose"
-               onPress={closeIt}
-              /> */}
-      {/* <Eat/> */}
       <FlatList
         style={{height: '100%'}}
         data={department}
@@ -432,8 +472,6 @@ const ExploreScreen = () => {
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
-                    <Text style={styles.body}>{item.latitude}</Text>
-                    <Text style={styles.body}>{item.longitude}</Text>
 
                 </View>
             </Pressable>
@@ -445,22 +483,6 @@ const ExploreScreen = () => {
 
     const Screen6 = () => {
       return (
-      //   <View>
-      //         <View style={styles.searchBox1}>
-      //   <TextInput 
-      //   value={input}
-      //   onChangeText={(text) => setInput(text)}
-      //     placeholder="Where You Dey Find?"
-      //     placeholderTextColor="#3f4453"
-      //     autoCapitalize="none"
-      //     style={{flex:1,padding:0}}
-      //   />
-      //   <Ionicons name="ios-search" size={20} />
-      // </View>
-
-      // <SearchFilter data={users} input={input} setInput={setInput} closeIt={closeIt} />
-     
-      //   </View>
       <Search/>
       );
     };
@@ -565,20 +587,6 @@ const ExploreScreen = () => {
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
-// testing
-const [openDirections, setOpenDirections] = useState(false);
-// const handleOpenDirections = async () => {
-//   const directions = await getDirections({
-//     // origin,
-//     destination,
-//   });
-
-//   setOpenDirections(true);
-
-//   // Linking.openURL(directions);
-// };
-// const origin = { latitude: 10.607917, longitude: 7.441819,};
-// const destination = { latitude: 10.609766, longitude: 7.442055, };
 
   return (
     <GestureHandlerRootView
@@ -631,7 +639,6 @@ const [openDirections, setOpenDirections] = useState(false);
         {/* search button at the top */}
       <TouchableOpacity
       onPress={() => openBottomSheet(Screen6)}
-      // onPress={handleOpenDirections}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
         <Text style={styles.text}> Search </Text>
@@ -682,6 +689,12 @@ const [openDirections, setOpenDirections] = useState(false);
          onPress={() => openBottomSheet(Screen3)}
         >
           <Text style={styles.text}> Lecture Rooms</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.chipsItem}
+         onPress={() => openBottomSheet(Screen7)}
+        >
+          <Text style={styles.text}>Eatery</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
