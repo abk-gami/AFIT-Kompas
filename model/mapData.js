@@ -4,12 +4,14 @@ import React from 'react'
 const Images = [
   { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/hq.jpg?raw=true" },
     { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/afit gate.jpg?raw=true" },
-    { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/yisa doko.jpg?raw=true" },
     { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/alpha hall.jpg?raw=true" },
-    { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/afit img.jpg?raw=true" },
+    { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/library.jpg?raw=true" },
+    { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/cict.jpg?raw=true" },
+    { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/masjid.jpg?raw=true" },
+    { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/clinic.jpg?raw=true" },
     { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/girls hostel.jpg?raw=true" },
     { uri: "https://github.com/abk-gami/AFIT-mobile-img/blob/main/boys hostel.jpg?raw=true" },
-];
+  ];
 
 
 
@@ -48,7 +50,7 @@ const mapData = () => {
       },
       title: 'Ibrahim Alfa Auditorium',
       description: 'Alfa Hall',
-      image: Images[3],
+      image: Images[2],
     },
     {
       coordinate: {
@@ -57,7 +59,7 @@ const mapData = () => {
       },
       title: 'AFIT Library',
       description: 'AFIT Main Library',
-      image: Images[4],
+      image: Images[3],
     },
     {
       coordinate: {
@@ -75,7 +77,7 @@ const mapData = () => {
       },
       title: 'AFIT Masjid',
       description: 'Mosque',
-      image: Images[4],
+      image: Images[5],
     },
     {
       coordinate: {
@@ -84,7 +86,7 @@ const mapData = () => {
       },
       title: 'AFIT Clinic',
       description: 'Sick Bay for ill students',
-      image: Images[4],
+      image: Images[6],
     },
     {
       coordinate: {
@@ -93,7 +95,7 @@ const mapData = () => {
       },
       title: 'Girls Hostel',
       description: 'Girls Hostel',
-      image: Images[5],
+      image: Images[7],
     },
     {
       coordinate: {
@@ -102,7 +104,7 @@ const mapData = () => {
       },
       title: 'Boys Hostel',
       description: 'Boys Hostel',
-      image: Images[6],
+      image: Images[8],
     },
   ];
 
