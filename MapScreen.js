@@ -272,12 +272,12 @@ const ExploreScreen = () => {
       // setTimeout(() => {
       // }, 20);
     };
-    // function closeIt() {
-    //   bottomSheetModalRef.current?.dismiss();
-    //   setTimeout(() => {
-    //     setIsOpen(false);
-    //   }, 100);
-    // }
+    function closeIt() {
+      bottomSheetModalRef.current?.dismiss();
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 100);
+    }
     
 
 
@@ -295,13 +295,7 @@ const ExploreScreen = () => {
         renderItem={({item}) => (
             <Pressable
             style={styles.pressable}
-            onPress= {() => {  openMap({
-              // zoom: 23,
-              mapType: 'satellite',
-              provider: 'google',
-              end: item.longitude,
-              travelType: 'walk'
-            });}}
+            onPress= {closeIt}
 
             >
                 <View style={styles.innerContainer}>
@@ -497,28 +491,28 @@ const ExploreScreen = () => {
     //Categories
   const initialMapState = {
     markers,
-    categories: [
-      { 
-        name: 'Fastfood Center', 
-        icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
-      },
-      {
-        name: 'Restaurant',
-        icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
-      },
-      {
-        name: 'Dineouts',
-        icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
-      },
-      {
-        name: 'Snacks Corner',
-        icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
-      },
-      {
-        name: 'Hotel',
-        icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
-      },
-  ],
+  //   categories: [
+  //     { 
+  //       name: 'Fastfood Center', 
+  //       icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
+  //     },
+  //     {
+  //       name: 'Restaurant',
+  //       icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
+  //     },
+  //     {
+  //       name: 'Dineouts',
+  //       icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
+  //     },
+  //     {
+  //       name: 'Snacks Corner',
+  //       icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
+  //     },
+  //     {
+  //       name: 'Hotel',
+  //       icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
+  //     },
+  // ],
   region: {
     latitude: 10.607917, 
     longitude:  7.441819,
@@ -680,15 +674,18 @@ const ExploreScreen = () => {
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen1)}
-        >
-          <Text style={styles.text}> Breaking News</Text>
+        ><Text>
+        </Text>
+          <Text style={styles.text}> 
+          Breaking News</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen2)}
         >
-          <Text style={styles.text}>Popular Places</Text>
+          <Text style={styles.text}> 
+          Popular Places</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -701,14 +698,16 @@ const ExploreScreen = () => {
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen7)}
         >
-          <Text style={styles.text}>Eatery</Text>
+          <Text style={styles.text}>
+            Eatery</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.chipsItem}
          onPress={() => openBottomSheet(Screen4)}
         >
-          <Text style={styles.text}>Accomodations</Text>
+          <Text style={styles.text}>
+            Accomodations</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
