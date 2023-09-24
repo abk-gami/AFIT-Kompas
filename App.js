@@ -5,8 +5,6 @@
 // import BottomSheet from './TBS';
 // import Bot from './bot';
 // import MapScreen from './LastOne'
-import Search from './search';
-import OpenGoogleMaps from './haa';
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';

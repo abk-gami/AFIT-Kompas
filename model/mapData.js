@@ -29,7 +29,7 @@ const mapData = () => {
         longitude:  7.441819,
       },
       title: 'AFIT HeadQuarters',
-      description: 'No near here if you no dey wear shoe!!',
+      description: 'AFIT Headquarters....',
       image: Images[0],
     },
     {
@@ -38,7 +38,7 @@ const mapData = () => {
         longitude:    7.439118488008261,
       },
       title: 'AFIT Gate',
-      description: 'Make sure you hold your I.D card',
+      description: 'Make sure you are holding your I.D card or any means of identification',
       image: Images[1],
     },
     {
@@ -56,7 +56,7 @@ const mapData = () => {
         longitude:    7.442055,
       },
       title: 'AFIT Library',
-      description: 'Shey I go need explain',
+      description: 'AFIT Main Library',
       image: Images[4],
     },
     {

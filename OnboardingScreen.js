@@ -11,46 +11,47 @@ const OnboardingScreen = ({navigation}) => {
   pages={[
     {
       backgroundColor: '#ef340f',
+      image: <Image source={require('./assets/logo.png')} style={styles.image} />,
+      title: 'Made for AFIT students',
+      subtitle: 'By an AFIT student!',
+    },
+    {
+      backgroundColor: 'orange',
       image: <Image source={require('./assets/1.png')} style={styles.image} />,
       title: 'A map that enables ease of movement around AFIT',
       subtitle: '....',
     },
     {
-      backgroundColor: 'orange',
+      backgroundColor: 'yellow',
       image: <Image source={require('./assets/2.png')} style={styles.image} />,
       title: 'Scroll through your favorite landmarks',
       subtitle: '....',
     },
     {
-      backgroundColor: 'yellow',
+      backgroundColor: 'green',
       image: <Image source={require('./assets/3.png')} style={styles.image} />,
       title: 'Search through a list of places in AFIT',
       subtitle: '....',
     },
     {
-      backgroundColor: 'green',
+      backgroundColor: '#001b7c',
       image: <Image source={require('./assets/4.png')} style={styles.image} />,
       title: 'See your current location',
       subtitle: '....',
     },
     {
-      backgroundColor: '#001b7c',
+      backgroundColor: 'indigo',
       image: <Image source={require('./assets/5.png')} style={styles.image} />,
       title: 'Get directions from where you are to where you are going ',
       subtitle: '....',
     },
     {
-      backgroundColor: 'indigo',
+      backgroundColor: 'violet',
       image: <Image source={require('./assets/6.png')} style={styles.image} />,
       title: 'Get news about upcoming events in AFIT',
       subtitle: '....',
     },
-    {
-      backgroundColor: 'violet',
-      image: <Image source={require('./assets/mark.jpg')} style={styles.image} />,
-      title: 'Made for AFIT students',
-      subtitle: 'By an AFIT student!',
-    },
+   
     
   ]}
 />

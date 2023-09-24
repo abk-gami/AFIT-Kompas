@@ -287,6 +287,7 @@ const ExploreScreen = () => {
       return (
         <View >
           <Text style={styles.bts}>BREAKING NEWS</Text>
+          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={breaking}
@@ -312,6 +313,7 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+          </ScrollView>
         </View>
       );
     };
@@ -322,6 +324,7 @@ const ExploreScreen = () => {
       return (
         <View>
       <Text style={styles.bts}>POPULAR PLACES</Text>
+      <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={popular}
@@ -346,6 +349,7 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+      </ScrollView>
         </View>
       );
     };
@@ -355,6 +359,7 @@ const ExploreScreen = () => {
       return (
         <View>
           <Text style={styles.bts}>LECTURE ROOMS</Text>
+          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={lecture}
@@ -379,18 +384,15 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+          </ScrollView>
         </View>
       );
     };
     const Screen7 = () => {
-
-
-  if (isLoading) {
-    return <ActivityIndicator />;
-  }
       return (
         <View>
           <Text style={styles.bts}>EATERY</Text>
+          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={eatery}
@@ -415,6 +417,7 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+          </ScrollView>
         </View>
       );
     };
@@ -423,6 +426,7 @@ const ExploreScreen = () => {
       return (
         <View>
           <Text style={styles.bts}>HOSTELS</Text>
+          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={hostel}
@@ -446,6 +450,7 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+          </ScrollView>
         </View>
       );
     };
@@ -454,6 +459,7 @@ const ExploreScreen = () => {
       return (
         <View>
           <Text style={styles.bts}>DEPARTMENTS</Text>
+          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={department}
@@ -477,6 +483,7 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+          </ScrollView>
         </View>
       );
     };
