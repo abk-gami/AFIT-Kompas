@@ -11,6 +11,8 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
     <View style={{marginTop:10, flex: 1, paddingBottom: 20,}}>
             <FlatList
         data={data}
+        // onRefresh={() => console.log("refreshing")}
+        // refreshing={true}
         renderItem={({item}) => {
             if(input === ""){
                 return(
@@ -34,8 +36,12 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                 return(
                     <Pressable
                     style={styles.pressable}
-                    // onPress={closeIt}
-                    >
+                    onPress= {() => {  openMap({
+                        mapType: 'satellite',
+                        provider: 'google',
+                        end: item.latitude,
+                        travelType: 'walk'
+                      });}}                       >
                         <View style={styles.innerContainer}>
                             <Text style={styles.title}>{item.title}</Text>
                             <Text style={styles.body}>{item.body}</Text>
