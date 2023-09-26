@@ -6,11 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/app-icon.jpg",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -21,11 +16,23 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.abkgami.afitCompass",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "permissions": ["Location"]
+    "extra": {
+      "eas": {
+        "projectId": "9402c0ac-41db-4b96-aab1-34ceff99e190"
+      }
+    }
+  },
+  "permissions": [
+    "Location"
+  ],
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1880381343731142~2240881534"
   }
 }
