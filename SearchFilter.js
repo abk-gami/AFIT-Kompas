@@ -2,8 +2,10 @@ import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import openMap from 'react-native-open-maps';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-1880381343731142/5547595364';
 const SearchFilter = ({data, input, setInput, closeIt}) => {
   return (
     <ScrollView style={styles.scroll}>
@@ -30,6 +32,7 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                             <Text style={styles.other}>{item.other}</Text>
                         </View>
                     </Pressable>
+                    
                 )
             }
             if(item.other.toLowerCase().includes(input)){
@@ -54,6 +57,13 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
         }}
         />
     </View>
+    <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
     </ScrollView>
 
   )
