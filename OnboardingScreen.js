@@ -12,8 +12,8 @@ const OnboardingScreen = ({navigation}) => {
     {
       backgroundColor: '#ef340f',
       image: <Image source={require('./assets/logo.png')} style={styles.image} />,
-      title: 'Made for AFIT students',
-      subtitle: 'By an AFIT student!',
+      title: 'Please turn on Location for better Experience',
+      subtitle: 'Made for AFIT students..By an AFIT student!',
     },
     {
       backgroundColor: 'orange',

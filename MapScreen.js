@@ -17,8 +17,10 @@ import {
   Button,
   StatusBar,
 } from "react-native";
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { Linking } from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
+import SimpleAnimatable from "./SimpleAnimatable";
 import getDirections from 'react-native-google-maps-directions';
 // import MapViewDirections from 'expo'
 import MapViewDirections from 'react-native-maps-directions';
@@ -45,6 +47,8 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-1880381343731142/5547595364';
+
 
 const ExploreScreen = () => {
 
@@ -281,32 +285,45 @@ const ExploreScreen = () => {
     
 
 
+    const [show, setShow] = useState(false);
 
+    useEffect(() => {
+      setTimeout(() => setShow(true), 3000);
+    }, []);
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
         <View >
           <Text style={styles.bts}>BREAKING NEWS</Text>
           <ScrollView>
-      <FlatList
+            {/* {breaking ?  */}
+            <FlatList
         style={{height: '100%'}}
         data={breaking}
         numColumns={1}
         renderItem={({item}) => (
-            <Pressable
-            style={styles.pressable}
-            onPress= {closeIt}
-
-            >
+          <Pressable
+          style={styles.pressable}
+          onPress= {closeIt}
+          
+          >
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
                     <Text style={styles.body}>{item.other}</Text>
 
-                </View>
-            </Pressable>
-        )}
-        />
+                    </View>
+                    </Pressable>
+                    )}
+                    />
+                    {/* :  <SimpleAnimatable/> } */}
+          <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
           </ScrollView>
         </View>
       );
@@ -343,6 +360,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+                 <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
       </ScrollView>
         </View>
       );
@@ -378,6 +402,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+                 <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
           </ScrollView>
         </View>
       );
@@ -411,6 +442,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+                 <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
           </ScrollView>
         </View>
       );
@@ -444,6 +482,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+                 <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
           </ScrollView>
         </View>
       );
@@ -477,6 +522,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
+                 <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
           </ScrollView>
         </View>
       );
