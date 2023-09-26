@@ -6,9 +6,10 @@
 // import Bot from './bot';
 // import MapScreen from './LastOne'
 import React, { useEffect } from 'react';
+import 'expo-dev-client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import SimpleAnimatable from './SimpleAnimatable';
 import OnboardingScreen from  './OnboardingScreen'
 import MapScreen from './MapScreen';
 // import AsyncStorage from '@react-native-community/async-storage';
