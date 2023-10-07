@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SimpleAnimatable from './SimpleAnimatable';
 import OnboardingScreen from  './OnboardingScreen'
 import MapScreen from './MapScreen';
+import Chee from './Chee';
 const AppStack = createStackNavigator();
 
 const App = () => {
