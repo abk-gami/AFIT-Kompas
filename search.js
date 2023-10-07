@@ -8,7 +8,7 @@ const Search = () => {
   const [input, setInput] = useState("");
 
   const [users, setUsers] = useState([]);
-  const todoRef = firebase.firestore().collection('location').orderBy("title", "asc");
+  const todoRef = firebase.firestore().collection('location');
   
 
   useEffect(() => {
