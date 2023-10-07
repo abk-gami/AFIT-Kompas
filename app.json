@@ -14,14 +14,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/app-icon.jpg",
         "backgroundColor": "#ffffff"
       },
       "package": "com.abkgami.afitCompass",
+      "config": {
+        "googleMaps": {
+            "apiKey": "AIzaSyAlIDUiTW6M9p6qb7mHsMCvqk0_OMO3MV0"
+        }
+      },
       "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/app-icon.jpg"
     },
     "extra": {
       "eas": {
