@@ -1,34 +1,32 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect, useRef } from 'react';
 import openMap from 'react-native-open-maps';
+import Chee from "./Chee";
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
   ScrollView,
-  FlatList,
+  // FlatList,
   Pressable,
   Animated,
   Image,
   TouchableOpacity,
   Dimensions,
   Platform,
-  Button,
   StatusBar,
+  ActivityIndicator,
 } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import { Linking } from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
-import SimpleAnimatable from "./SimpleAnimatable";
-import getDirections from 'react-native-google-maps-directions';
-// import MapViewDirections from 'expo'
-import MapViewDirections from 'react-native-maps-directions';
 import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
-// import BottomSheet from './BottomSheets';
 import Search from "./search";
-import {
+import BottomSheet, {
+  BottomSheetView,
+  BottomSheetScrollView,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
@@ -37,11 +35,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-
 import { markers } from './model/mapData';
-// import StarRating from './components/StarRating';
 
-// import { useTheme } from '@react-navigation/native';
+import PopularPlaces from "./PopularPlaces";
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
@@ -141,6 +137,7 @@ const ExploreScreen = () => {
 
   //Lecture Room
   const [lecture, setLecture] = useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
   const LectureRoom = firebase.firestore().collection('LectureRoom');
   useEffect(() => {
       async function fetchData(){
@@ -161,12 +158,13 @@ const ExploreScreen = () => {
                       // printTitle(title)
                       // printBody(body)
                     })
-                  setLecture(lecture)
-              }
-          )
-
-      }
-      fetchData();
+                    setLecture(lecture)
+                  }
+                  )
+                  
+                }
+                fetchData();
+                setIsLoading(false);
   }, [])
 
   // function printTitle(title) {
@@ -177,7 +175,7 @@ const ExploreScreen = () => {
   // }
   // Eatery
   const [eatery, setEatery] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const Restaurant = firebase.firestore().collection('Eatery');
   useEffect(() => {
       async function fetchData(){
@@ -271,19 +269,24 @@ const ExploreScreen = () => {
 
     const openBottomSheet = (screen) => {
       setCurrentScreen(screen);
-      bottomSheetModalRef.current?.present();
-      setIsOpen(true);
+      // bottomSheetModalRef.current?.present(1);
+      bottomSheetModalRef.current?.snapToIndex(1);
+      // setIsOpen(true);
       // setTimeout(() => {
       // }, 20);
     };
     function closeIt() {
-      bottomSheetModalRef.current?.dismiss();
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 100);
+      // bottomSheetModalRef.current?.dismiss();
+      bottomSheetModalRef.current?.close();
+      // setTimeout(() => {
+      //   setIsOpen(false);
+      // }, 100);
     }
-    
-
+    const LoadingAnimation = () => {
+      return (
+        <ActivityIndicator size="large" color="#ffffff" />
+      );
+    };
 
     const [show, setShow] = useState(false);
 
@@ -293,10 +296,8 @@ const ExploreScreen = () => {
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
-        <View >
+        <View style={styles.ad}>
           <Text style={styles.bts}>BREAKING NEWS</Text>
-          <ScrollView>
-            {/* {breaking ?  */}
             <FlatList
         style={{height: '100%'}}
         data={breaking}
@@ -316,15 +317,13 @@ const ExploreScreen = () => {
                     </Pressable>
                     )}
                     />
-                    {/* :  <SimpleAnimatable/> } */}
-          <BannerAd
+          {/* <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    />
-          </ScrollView>
+    /> */}
         </View>
       );
     };
@@ -332,52 +331,20 @@ const ExploreScreen = () => {
     
     
     const Screen2 = () => {
-      return (
-        <View>
-      <Text style={styles.bts}>POPULAR PLACES</Text>
-      <ScrollView>
-      <FlatList
-        style={{height: '100%'}}
-        data={popular}
-        numColumns={1}
-        renderItem={({item}) => (
-            <Pressable
-            style={styles.pressable}
-            onPress= {() => {  openMap({
-              // zoom: 23,
-              mapType: 'satellite',
-              provider: 'google',
-              end: item.latitude,
-              travelType: 'walk'
-            });}}      
-          >             
-                <View style={styles.innerContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
-
-                </View>
-            </Pressable>
-        )}
-        />
-                 <BannerAd
-      unitId={adUnitId}
-      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-    />
-      </ScrollView>
-        </View>
+      return(
+        <PopularPlaces/>
+        // <Chee/>
       );
     };
     
     const Screen3 = () => {
 
       return (
-        <View>
+        <View style={styles.ad}>
           <Text style={styles.bts}>LECTURE ROOMS</Text>
-          <ScrollView>
+          {isLoading && (
+          <LoadingAnimation visible={isLoading} />
+          )}
       <FlatList
         style={{height: '100%'}}
         data={lecture}
@@ -402,22 +369,20 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
-                 <BannerAd
+                 {/* <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    />
-          </ScrollView>
+    /> */}
         </View>
       );
     };
     const Screen7 = () => {
       return (
-        <View>
+        <View style={styles.ad}>
           <Text style={styles.bts}>EATERY</Text>
-          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={eatery}
@@ -442,23 +407,21 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
-                 <BannerAd
+                 {/* <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    />
-          </ScrollView>
+    /> */}
         </View>
       );
     };
 
     const Screen4 = () => {
       return (
-        <View>
+        <View style={styles.ad}>
           <Text style={styles.bts}>HOSTELS</Text>
-          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={hostel}
@@ -467,7 +430,6 @@ const ExploreScreen = () => {
             <Pressable
             style={styles.pressable}
             onPress= {() => {  openMap({
-              // zoom: 23,
               mapType: 'satellite',
               provider: 'google',
               end: item.latitude,
@@ -482,23 +444,21 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
-                 <BannerAd
+                 {/* <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    />
-          </ScrollView>
+    /> */}
         </View>
       );
     };
 
     const Screen5 = () => {
       return (
-        <View>
+        <View style={styles.ad}>
           <Text style={styles.bts}>DEPARTMENTS</Text>
-          <ScrollView>
       <FlatList
         style={{height: '100%'}}
         data={department}
@@ -507,7 +467,6 @@ const ExploreScreen = () => {
             <Pressable
             style={styles.pressable}
             onPress= {() => {  openMap({
-              // zoom: 23,
               mapType: 'satellite',
               provider: 'google',
               end: item.latitude,
@@ -522,14 +481,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
-                 <BannerAd
+                 {/* <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    />
-          </ScrollView>
+    /> */}
         </View>
       );
     };
@@ -543,28 +501,6 @@ const ExploreScreen = () => {
     //Categories
   const initialMapState = {
     markers,
-  //   categories: [
-  //     { 
-  //       name: 'Fastfood Center', 
-  //       icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
-  //     },
-  //     {
-  //       name: 'Restaurant',
-  //       icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
-  //     },
-  //     {
-  //       name: 'Dineouts',
-  //       icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
-  //     },
-  //     {
-  //       name: 'Snacks Corner',
-  //       icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
-  //     },
-  //     {
-  //       name: 'Hotel',
-  //       icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
-  //     },
-  // ],
   region: {
     latitude: 10.607917, 
     longitude:  7.441819,
@@ -823,7 +759,7 @@ const ExploreScreen = () => {
 
  {/* <Button title="Present Modal" /> */}
 
-      <BottomSheetModalProvider>
+      {/* <BottomSheetModalProvider>
  <BottomSheetModal
     ref={bottomSheetModalRef}
     index={1}
@@ -835,15 +771,37 @@ const ExploreScreen = () => {
     onDismiss={() => setIsOpen(false)}
     enablePanDownToClose={true}
   >
-    {/* <View style={styles.contentContainer}>
-    <Text>Hello</Text>
-  <Button 
-  title="CLose" onPress={closeIt}
-  />
-    </View> */}
              {currentScreen}
   </BottomSheetModal>
- </BottomSheetModalProvider> 
+ </BottomSheetModalProvider>  */}
+
+ <BottomSheet
+    ref={bottomSheetModalRef}
+    index={1}
+    snapPoints={snapPoints}
+    backgroundStyle={{ borderRadius: 30, backgroundColor: '#001b7c' }}
+    isVisible={isOpen}
+    initialScreen={currentScreen}
+    onClose={() => setCurrentScreen(null)}
+    onDismiss={() => setIsOpen(false)}
+    enablePanDownToClose={true}
+      >
+       <TouchableOpacity onPress={()=> bottomSheetModalRef?.current?._handleSnapIndexChange('2') }>
+        <Text style={styles.bsup}>swipe down to close</Text>
+       </TouchableOpacity>
+        <BottomSheetScrollView>
+        {currentScreen}
+        </BottomSheetScrollView>
+        <View>
+        <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
+        </View>
+      </BottomSheet>
       </GestureHandlerRootView>
   );
 };
@@ -999,6 +957,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
 
   },
+  ad: {
+    paddingBottom: 90
+  },
 pressable: {
     backgroundColor: '#e5e5e5', 
     padding: 15,
@@ -1022,5 +983,11 @@ bts:{
   fontWeight: 'bold',
   fontSize: 17,
   alignSelf: 'center',
-}
+},
+bsup:{
+  fontSize:14,
+  color:'#ff0000' ,
+  alignSelf: 'center',
+  fontWeight: 'bold',
+},
 });
