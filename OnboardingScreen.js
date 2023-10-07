@@ -12,7 +12,7 @@ const OnboardingScreen = ({navigation}) => {
     {
       backgroundColor: '#ef340f',
       image: <Image source={require('./assets/logo.png')} style={styles.image} />,
-      title: 'Please turn on Location for better Experience',
+      title: 'Please TURN ON LOCATION for better Experience',
       subtitle: 'Made for AFIT students..By an AFIT student!',
     },
     {
