@@ -141,7 +141,7 @@ const ExploreScreen = () => {
   //Lecture Room
   const [lecture, setLecture] = useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const LectureRoom = firebase.firestore().collection('LectureRoom');
+  const LectureRoom = firebase.firestore().collection('LectureRoom').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
           LectureRoom
