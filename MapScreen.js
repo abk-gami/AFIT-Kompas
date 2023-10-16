@@ -23,6 +23,7 @@ import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
+import Eatery from "./tabs/Eatery/search";
 import Accomodation from "./tabs/Accomodation/search";
 import Department from "./tabs/Department/search";
 import Search from "./search";
@@ -177,7 +178,6 @@ const ExploreScreen = () => {
   // }
   // Eatery
   const [eatery, setEatery] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
   const Restaurant = firebase.firestore().collection('Eatery').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
@@ -202,7 +202,6 @@ const ExploreScreen = () => {
 
       }
       fetchData();
-      setIsLoading(false);
   }, [])
   //Accomodation
   const [hostel, setHostel] = useState([]);
@@ -383,40 +382,41 @@ const ExploreScreen = () => {
     };
     const Screen7 = () => {
       return (
-        <View style={styles.ad}>
-          <Text style={styles.bts}>EATERY</Text>
-      <FlatList
-        style={{height: '100%'}}
-        data={eatery}
-        numColumns={1}
-        renderItem={({item}) => (
-            <Pressable
-            style={styles.pressable}
-            onPress= {() => {  openMap({
-              // zoom: 23,
-              mapType: 'satellite',
-              provider: 'google',
-              end: item.latitude,
-              travelType: 'walk'
-            });}} 
-                >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
+        <Eatery/>
+    //     <View style={styles.ad}>
+    //       <Text style={styles.bts}>EATERY</Text>
+    //   <FlatList
+    //     style={{height: '100%'}}
+    //     data={eatery}
+    //     numColumns={1}
+    //     renderItem={({item}) => (
+    //         <Pressable
+    //         style={styles.pressable}
+    //         onPress= {() => {  openMap({
+    //           // zoom: 23,
+    //           mapType: 'satellite',
+    //           provider: 'google',
+    //           end: item.latitude,
+    //           travelType: 'walk'
+    //         });}} 
+    //             >
+    //             <View style={styles.innerContainer}>
+    //                 <Text style={styles.title}>{item.title}</Text>
+    //                 <Text style={styles.body}>{item.body}</Text>
+    //                 <Text style={styles.body}>{item.other}</Text>
 
-                </View>
-            </Pressable>
-        )}
-        />
-                 <BannerAd
-      unitId={adUnitId}
-      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-    />
-        </View>
+    //             </View>
+    //         </Pressable>
+    //     )}
+    //     />
+    //              <BannerAd
+    //   unitId={adUnitId}
+    //   size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+    //   requestOptions={{
+    //     requestNonPersonalizedAdsOnly: true,
+    //   }}
+    // />
+    //     </View>
       );
     };
 
