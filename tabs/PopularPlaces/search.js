@@ -1,35 +1,34 @@
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View, Text } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
 
 import SearchFilter from './SearchFilter'
-const Search = () => {
+const Popular = () => {
   const [input, setInput] = useState("");
 
-  const [users, setUsers] = useState([]);
-  const todoRef = firebase.firestore().collection('Department').orderBy("id", "asc");
-  
-
+  const [popular, setPopular] = useState([]);
+  const popularPlace = firebase.firestore().collection('Popular').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
-          todoRef
+          popularPlace
           .onSnapshot(
               querySnapshot => {
-                  const users = []
+                  const popular = []
                   querySnapshot.forEach((doc) => {
                       const {title, body, other, latitude, find, id} = doc.data()
-                      users.push({
+                      popular.push({
                           id: doc.id,
                           title,
                           body,
                           other,
                           latitude,
-                          find,
                           id,
+                          find,
                       })
+                  
                   })
-                  setUsers(users)
+                  setPopular(popular)
               }
           )
 
@@ -38,6 +37,7 @@ const Search = () => {
   }, [])
   return (
     <View style={{flex: 1}}>
+            <Text style={styles.bts}>POPULAR PLACES</Text>
           <View style={styles.searchBox1}>
     <TextInput 
     value={input}
@@ -50,12 +50,12 @@ const Search = () => {
     <Ionicons name="ios-search" size={20} />
   </View>
 
-  <SearchFilter data={users} input={input} setInput={setInput}  />
+  <SearchFilter data={popular} input={input} setInput={setInput}  />
     </View>
   );
 }
 
-export default Search
+export default Popular
 
 const styles = StyleSheet.create({
   searchBox1: {
@@ -76,6 +76,12 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 10,
   },
+  bts:{
+    color:'#fff',
+    fontWeight: 'bold',
+    fontSize: 17,
+    alignSelf: 'center',
+  }
 })
 
 
