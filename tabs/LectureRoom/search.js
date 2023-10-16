@@ -1,25 +1,22 @@
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View, Text } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
 
 import SearchFilter from './SearchFilter'
-const Search = () => {
+const Lecture = () => {
   const [input, setInput] = useState("");
-
-  const [users, setUsers] = useState([]);
-  const todoRef = firebase.firestore().collection('Department').orderBy("id", "asc");
-  
-
+  const [lecture, setLecture] = useState([]);
+  const LectureRoom = firebase.firestore().collection('LectureRoom').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
-          todoRef
+          LectureRoom
           .onSnapshot(
               querySnapshot => {
-                  const users = []
+                  const lecture = []
                   querySnapshot.forEach((doc) => {
                       const {title, body, other, latitude, find, id} = doc.data()
-                      users.push({
+                      lecture.push({
                           id: doc.id,
                           title,
                           body,
@@ -27,17 +24,18 @@ const Search = () => {
                           latitude,
                           find,
                           id,
-                      })
-                  })
-                  setUsers(users)
-              }
-          )
-
-      }
-      fetchData();
+                        })
+                    })
+                    setLecture(lecture)
+                  }
+                  )
+                  
+                }
+                fetchData();
   }, [])
   return (
     <View style={{flex: 1}}>
+      <Text style={styles.bts}>LECTURE ROOMS</Text>
           <View style={styles.searchBox1}>
     <TextInput 
     value={input}
@@ -50,12 +48,12 @@ const Search = () => {
     <Ionicons name="ios-search" size={20} />
   </View>
 
-  <SearchFilter data={users} input={input} setInput={setInput}  />
+  <SearchFilter data={lecture} input={input} setInput={setInput}  />
     </View>
   );
 }
 
-export default Search
+export default Lecture
 
 const styles = StyleSheet.create({
   searchBox1: {
@@ -75,6 +73,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 10,
+  },
+  bts:{
+    color:'#fff',
+    fontWeight: 'bold',
+    fontSize: 17,
+    alignSelf: 'center',
   },
 })
 
