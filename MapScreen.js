@@ -23,6 +23,8 @@ import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
+import Accomodation from "./tabs/Accomodation/search";
+import Department from "./tabs/Department/search";
 import Search from "./search";
 import BottomSheet, {
   BottomSheetView,
@@ -176,7 +178,7 @@ const ExploreScreen = () => {
   // Eatery
   const [eatery, setEatery] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
-  const Restaurant = firebase.firestore().collection('Eatery');
+  const Restaurant = firebase.firestore().collection('Eatery').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
           Restaurant
@@ -204,7 +206,7 @@ const ExploreScreen = () => {
   }, [])
   //Accomodation
   const [hostel, setHostel] = useState([]);
-  const hostelAccomodation = firebase.firestore().collection('Accomodation');
+  const hostelAccomodation = firebase.firestore().collection('Accomodation').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
           hostelAccomodation
@@ -212,14 +214,14 @@ const ExploreScreen = () => {
               querySnapshot => {
                   const hostel = []
                   querySnapshot.forEach((doc) => {
-                      const {title, body, other, latitude, longitude} = doc.data()
+                      const {title, body, other, latitude, id} = doc.data()
                       hostel.push({
                           id: doc.id,
                           title,
                           body,
                           other,
                           latitude,
-                          longitude,
+                          id,
                       })
                   })
                   setHostel(hostel)
@@ -231,7 +233,7 @@ const ExploreScreen = () => {
   }, [])
   //Department
   const [department, setDepartment] = useState([]);
-  const departmentBuilding = firebase.firestore().collection('Department');
+  const departmentBuilding = firebase.firestore().collection('Department').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
           departmentBuilding
@@ -239,14 +241,14 @@ const ExploreScreen = () => {
               querySnapshot => {
                   const department = []
                   querySnapshot.forEach((doc) => {
-                      const {title, body, other, latitude, longitude} = doc.data()
+                      const {title, body, other, latitude, id} = doc.data()
                       department.push({
                           id: doc.id,
                           title,
                           body,
                           other,
                           latitude,
-                          longitude,
+                          id,
                       })
                   })
                   setDepartment(department)
@@ -317,13 +319,13 @@ const ExploreScreen = () => {
                     </Pressable>
                     )}
                     />
-          {/* <BannerAd
+          <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    /> */}
+    />
         </View>
       );
     };
@@ -369,13 +371,13 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
-                 {/* <BannerAd
+                 <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    /> */}
+    />
         </View>
       );
     };
@@ -407,88 +409,90 @@ const ExploreScreen = () => {
             </Pressable>
         )}
         />
-                 {/* <BannerAd
+                 <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    /> */}
+    />
         </View>
       );
     };
 
     const Screen4 = () => {
       return (
-        <View style={styles.ad}>
-          <Text style={styles.bts}>HOSTELS</Text>
-      <FlatList
-        style={{height: '100%'}}
-        data={hostel}
-        numColumns={1}
-        renderItem={({item}) => (
-            <Pressable
-            style={styles.pressable}
-            onPress= {() => {  openMap({
-              mapType: 'satellite',
-              provider: 'google',
-              end: item.latitude,
-              travelType: 'walk'
-            });}}             >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
+        <Accomodation/>
+    //     <View style={styles.ad}>
+    //       <Text style={styles.bts}>HOSTELS</Text>
+    //   <FlatList
+    //     style={{height: '100%'}}
+    //     data={hostel}
+    //     numColumns={1}
+    //     renderItem={({item}) => (
+    //         <Pressable
+    //         style={styles.pressable}
+    //         onPress= {() => {  openMap({
+    //           mapType: 'satellite',
+    //           provider: 'google',
+    //           end: item.latitude,
+    //           travelType: 'walk'
+    //         });}}             >
+    //             <View style={styles.innerContainer}>
+    //                 <Text style={styles.title}>{item.title}</Text>
+    //                 <Text style={styles.body}>{item.body}</Text>
+    //                 <Text style={styles.body}>{item.other}</Text>
 
-                </View>
-            </Pressable>
-        )}
-        />
-                 {/* <BannerAd
-      unitId={adUnitId}
-      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-    /> */}
-        </View>
+    //             </View>
+    //         </Pressable>
+    //     )}
+    //     />
+    //              <BannerAd
+    //   unitId={adUnitId}
+    //   size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+    //   requestOptions={{
+    //     requestNonPersonalizedAdsOnly: true,
+    //   }}
+    // />
+    //     </View>
       );
     };
 
     const Screen5 = () => {
       return (
-        <View style={styles.ad}>
-          <Text style={styles.bts}>DEPARTMENTS</Text>
-      <FlatList
-        style={{height: '100%'}}
-        data={department}
-        numColumns={1}
-        renderItem={({item}) => (
-            <Pressable
-            style={styles.pressable}
-            onPress= {() => {  openMap({
-              mapType: 'satellite',
-              provider: 'google',
-              end: item.latitude,
-              travelType: 'walk'
-            });}}             >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
+        <Department/>
+    //     <View style={styles.ad}>
+    //       <Text style={styles.bts}>DEPARTMENTS</Text>
+    //   <FlatList
+    //     style={{height: '100%'}}
+    //     data={department}
+    //     numColumns={1}
+    //     renderItem={({item}) => (
+    //         <Pressable
+    //         style={styles.pressable}
+    //         onPress= {() => {  openMap({
+    //           mapType: 'satellite',
+    //           provider: 'google',
+    //           end: item.latitude,
+    //           travelType: 'walk'
+    //         });}}             >
+    //             <View style={styles.innerContainer}>
+    //                 <Text style={styles.title}>{item.title}</Text>
+    //                 <Text style={styles.body}>{item.body}</Text>
+    //                 <Text style={styles.body}>{item.other}</Text>
 
-                </View>
-            </Pressable>
-        )}
-        />
-                 {/* <BannerAd
-      unitId={adUnitId}
-      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-    /> */}
-        </View>
+    //             </View>
+    //         </Pressable>
+    //     )}
+    //     />
+    //              <BannerAd
+    //   unitId={adUnitId}
+    //   size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+    //   requestOptions={{
+    //     requestNonPersonalizedAdsOnly: true,
+    //   }}
+    // />
+    //     </View>
       );
     };
 
@@ -630,7 +634,7 @@ const ExploreScreen = () => {
       onPress={() => openBottomSheet(Screen6)}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
-        <Text style={styles.text}> Search </Text>
+        <Text style={styles.text}> AFIT Guide </Text>
       </TouchableOpacity>
 
       <ScrollView
@@ -786,9 +790,7 @@ const ExploreScreen = () => {
     onDismiss={() => setIsOpen(false)}
     enablePanDownToClose={true}
       >
-       <TouchableOpacity onPress={()=> bottomSheetModalRef?.current?._handleSnapIndexChange('2') }>
         <Text style={styles.bsup}>swipe down to close</Text>
-       </TouchableOpacity>
         <BottomSheetScrollView>
         {currentScreen}
         </BottomSheetScrollView>
@@ -840,6 +842,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection:"row",
     backgroundColor: '#fff',
+    height: '100%',
     width: '90%',
     alignSelf:'center',
     justifyContent: 'center',
@@ -863,10 +866,11 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     backgroundColor:'#fff', 
     borderRadius:20,
-    padding:8,
+    // padding:8,
     paddingHorizontal:20, 
     marginHorizontal:10,
-    height:35,
+    paddingTop: 7,
+    height: 40,
     shadowColor: '#ccc',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
@@ -958,7 +962,8 @@ const styles = StyleSheet.create({
 
   },
   ad: {
-    paddingBottom: 90
+    // paddingBottom: 50,
+    height: '100%'
   },
 pressable: {
     backgroundColor: '#e5e5e5', 
@@ -973,7 +978,8 @@ innerContainer: {
 },
 title:{
     fontWeight: 'bold',
-    fontSize: 19
+    fontSize: 19, 
+    textAlign: "center",
 },
 body :{
     fontWeight: '300'
