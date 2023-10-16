@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, FlatList, Pressable, ScrollView } from 'react-n
 import React from 'react'
 import openMap from 'react-native-open-maps';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-
-
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-1880381343731142/5547595364';
 const SearchFilter = ({data, input, setInput, closeIt}) => {
   return (
@@ -34,7 +32,7 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                     
                 )
             }
-            if(item.other.toLowerCase().includes(input)){
+            if(item.find.toLowerCase().includes(input)){
                 return(
                     <Pressable
                     style={styles.pressable}
@@ -56,13 +54,13 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
         }}
         />
     </View>
-    {/* <BannerAd
+    <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    /> */}
+    />
     </View>
 
   )
@@ -81,19 +79,20 @@ const styles = StyleSheet.create({
     innerContainer: {
         flexDirection:'column',
         alignItems: 'center',
+        flex:1
     },
     title:{
         fontWeight: '900',
-        fontSize: 19
+        fontSize: 20,
+        textAlign: "center",
     },
     body :{
-        fontWeight: '500'
+        fontWeight: '600',
+        fontSize: 16,
+        textAlign: "center",
     }, 
     other: {
-        color: '#e5e5e5',
-        fontSize: 3,
+        fontSize: 15,
+        textAlign: "center",
     },
-    scroll: {
-        flex: 1,
-    }
 })
