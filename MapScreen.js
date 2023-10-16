@@ -25,6 +25,7 @@ import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
 import Lecture from "./tabs/LectureRoom/search";
 import Eatery from "./tabs/Eatery/search";
+import Popular from "./tabs/PopularPlaces/search";
 import Accomodation from "./tabs/Accomodation/search";
 import Department from "./tabs/Department/search";
 import Search from "./search";
@@ -334,7 +335,8 @@ const ExploreScreen = () => {
     
     const Screen2 = () => {
       return(
-        <PopularPlaces/>
+        // <PopularPlaces/>
+        <Popular/>
         // <Chee/>
       );
     };
