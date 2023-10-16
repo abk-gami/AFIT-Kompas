@@ -8,7 +8,7 @@ const Search = () => {
   const [input, setInput] = useState("");
 
   const [users, setUsers] = useState([]);
-  const todoRef = firebase.firestore().collection('location');
+  const todoRef = firebase.firestore().collection('Department').orderBy("id", "asc");
   
 
   useEffect(() => {
@@ -18,14 +18,15 @@ const Search = () => {
               querySnapshot => {
                   const users = []
                   querySnapshot.forEach((doc) => {
-                      const {title, body, other, latitude, longitude} = doc.data()
+                      const {title, body, other, latitude, find, id} = doc.data()
                       users.push({
                           id: doc.id,
                           title,
                           body,
                           other,
                           latitude,
-                          longitude,
+                          find,
+                          id,
                       })
                   })
                   setUsers(users)
