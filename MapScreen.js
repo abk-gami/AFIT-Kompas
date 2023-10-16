@@ -23,6 +23,7 @@ import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import SearchFilter from "./SearchFilter";
 import {firebase} from './config';
+import Lecture from "./tabs/LectureRoom/search";
 import Eatery from "./tabs/Eatery/search";
 import Accomodation from "./tabs/Accomodation/search";
 import Department from "./tabs/Department/search";
@@ -341,43 +342,44 @@ const ExploreScreen = () => {
     const Screen3 = () => {
 
       return (
-        <View style={styles.ad}>
-          <Text style={styles.bts}>LECTURE ROOMS</Text>
-          {isLoading && (
-          <LoadingAnimation visible={isLoading} />
-          )}
-      <FlatList
-        style={{height: '100%'}}
-        data={lecture}
-        numColumns={1}
-        renderItem={({item}) => (
-            <Pressable
-            style={styles.pressable}
-            onPress= {() => {  openMap({
-              // zoom: 23,
-              mapType: 'satellite',
-              provider: 'google',
-              end: item.latitude,
-              travelType: 'walk'
-            });}} 
-                >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
+        <Lecture/>
+    //     <View style={styles.ad}>
+    //       <Text style={styles.bts}>LECTURE ROOMS</Text>
+    //       {isLoading && (
+    //       <LoadingAnimation visible={isLoading} />
+    //       )}
+    //   <FlatList
+    //     style={{height: '100%'}}
+    //     data={lecture}
+    //     numColumns={1}
+    //     renderItem={({item}) => (
+    //         <Pressable
+    //         style={styles.pressable}
+    //         onPress= {() => {  openMap({
+    //           // zoom: 23,
+    //           mapType: 'satellite',
+    //           provider: 'google',
+    //           end: item.latitude,
+    //           travelType: 'walk'
+    //         });}} 
+    //             >
+    //             <View style={styles.innerContainer}>
+    //                 <Text style={styles.title}>{item.title}</Text>
+    //                 <Text style={styles.body}>{item.body}</Text>
+    //                 <Text style={styles.body}>{item.other}</Text>
 
-                </View>
-            </Pressable>
-        )}
-        />
-                 <BannerAd
-      unitId={adUnitId}
-      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-    />
-        </View>
+    //             </View>
+    //         </Pressable>
+    //     )}
+    //     />
+    //              <BannerAd
+    //   unitId={adUnitId}
+    //   size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+    //   requestOptions={{
+    //     requestNonPersonalizedAdsOnly: true,
+    //   }}
+    // />
+    //     </View>
       );
     };
     const Screen7 = () => {
