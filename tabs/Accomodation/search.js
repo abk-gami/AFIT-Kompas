@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View, Text } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
@@ -35,6 +35,7 @@ const Accomodation = () => {
   }, [])
   return (
     <View style={{flex: 1}}>
+            <Text style={styles.bts}>HOSTELS</Text>
           <View style={styles.searchBox1}>
     <TextInput 
     value={input}
@@ -72,6 +73,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 10,
+  },
+  bts:{
+    color:'#fff',
+    fontWeight: 'bold',
+    fontSize: 17,
+    alignSelf: 'center',
   },
 })
 
