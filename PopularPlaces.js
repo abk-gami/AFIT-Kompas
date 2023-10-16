@@ -4,7 +4,8 @@ import React, {useRef, useState, useEffect} from 'react'
 import {firebase} from './config';
 
 
-    
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-1880381343731142/5547595364';
     const PopularPlaces = () => {
         const [popular, setPopular] = useState([]);
     const popularPlace = firebase.firestore().collection('Popular');
@@ -34,9 +35,9 @@ import {firebase} from './config';
         fetchData();
     }, [])
     return (
-        <View>
+        <View style={styles.ad}>
       <Text style={styles.bts}>POPULAR PLACES</Text>
-      <View>
+      <View > 
       <FlatList
         style={{height: '100%'}}
         data={popular}
@@ -54,12 +55,19 @@ import {firebase} from './config';
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.other}>{item.other}</Text>
 
                 </View>
             </Pressable>
         )}
         />
+         <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
       </View>
         </View>
       );
@@ -75,20 +83,23 @@ const styles = StyleSheet.create({
         margin: 5,
         marginHorizontal: 10,
     },
+    ad:{
+        height: '100%'
+    },
     innerContainer: {
         flexDirection:'column',
         alignItems: 'center',
     },
     title:{
         fontWeight: '900',
-        fontSize: 19
+        fontSize: 20
     },
     body :{
-        fontWeight: '500'
+        fontWeight: '500',
+        fontSize: 16,
     }, 
     other: {
-        color: '#e5e5e5',
-        fontSize: 3,
+        fontSize: 14,
     },
     scroll: {
         flex: 1,
