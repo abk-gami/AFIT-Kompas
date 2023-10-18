@@ -26,7 +26,7 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                         <View style={styles.innerContainer}>
                             <Text style={styles.title}>{item.title}</Text>
                             <Text style={styles.body}>{item.body}</Text>
-                            <Text style={styles.other}>{item.other}</Text>
+                            {/* <Text style={styles.other}>{item.other}</Text> */}
                         </View>
                     </Pressable>
                     
@@ -45,7 +45,7 @@ const SearchFilter = ({data, input, setInput, closeIt}) => {
                         <View style={styles.innerContainer}>
                             <Text style={styles.title}>{item.title}</Text>
                             <Text style={styles.body}>{item.body}</Text>
-                            <Text style={styles.other}>{item.other}</Text>
+                            {/* <Text style={styles.other}>{item.other}</Text> */}
                         </View>
                     </Pressable>
                 )
