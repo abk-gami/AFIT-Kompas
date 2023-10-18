@@ -18,7 +18,7 @@ const OnboardingScreen = ({navigation}) => {
     {
       backgroundColor: 'orange',
       image: <Image source={require('./assets/1.png')} style={styles.image} />,
-      title: 'An app that enables ease of movement around AFIT',
+      title: 'An app that aides ease of movement around AFIT',
       subtitle: 'With a map that aides navigation',
     },
     {

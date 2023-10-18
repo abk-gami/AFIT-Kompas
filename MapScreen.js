@@ -267,13 +267,13 @@ const ExploreScreen = () => {
 
     const bottomSheetModalRef = useRef(null);
   
-    const snapPoints = [ "35%",  '75%', "100%"];
+    const snapPoints = [ "1%", "35%",  '75%', "99%"];
   
 
     const openBottomSheet = (screen) => {
       setCurrentScreen(screen);
       // bottomSheetModalRef.current?.present(1);
-      bottomSheetModalRef.current?.snapToIndex(1);
+      bottomSheetModalRef.current?.snapToIndex(2);
       // setIsOpen(true);
       // setTimeout(() => {
       // }, 20);
@@ -314,19 +314,19 @@ const ExploreScreen = () => {
                 <View style={styles.innerContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.body}>{item.other}</Text>
+                    <Text style={styles.other}>{item.other}</Text>
 
                     </View>
                     </Pressable>
                     )}
                     />
-          <BannerAd
+          {/* <BannerAd
       unitId={adUnitId}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
-    />
+    /> */}
         </View>
       );
     };
@@ -785,7 +785,8 @@ const ExploreScreen = () => {
 
  <BottomSheet
     ref={bottomSheetModalRef}
-    index={1}
+    
+    // index={1}
     snapPoints={snapPoints}
     backgroundStyle={{ borderRadius: 30, backgroundColor: '#001b7c' }}
     isVisible={isOpen}
@@ -794,7 +795,7 @@ const ExploreScreen = () => {
     onDismiss={() => setIsOpen(false)}
     enablePanDownToClose={true}
       >
-        <Text style={styles.bsup}>swipe down to close</Text>
+        {/* <Text style={styles.bsup}>swipe down to close</Text> */}
         <BottomSheetScrollView>
         {currentScreen}
         </BottomSheetScrollView>
@@ -986,8 +987,14 @@ title:{
     textAlign: "center",
 },
 body :{
-    fontWeight: '300'
+  fontWeight: '600',
+  fontSize: 16,
+  textAlign: "center",
 }, 
+other: {
+  fontSize: 15,
+  textAlign: "center",
+},
 bts:{
   color:'#fff',
   fontWeight: 'bold',
