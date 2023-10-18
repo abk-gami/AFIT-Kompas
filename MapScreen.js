@@ -37,6 +37,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -105,10 +106,10 @@ const ExploreScreen = () => {
                       })
                   })
                   setBreaking(breaking)
+                }
+                )
+                
               }
-          )
-
-      }
       fetchData();
   }, [])
 //Popular
@@ -262,12 +263,13 @@ const ExploreScreen = () => {
 
     //Bottom Sheet
     const [isOpen, setIsOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [currentScreen, setCurrentScreen] = useState(Screen1);
 
 
     const bottomSheetModalRef = useRef(null);
   
-    const snapPoints = [ "1%", "35%",  '75%', "99%"];
+    const snapPoints = [ "1%", "45%",  '75%', "99%"];
   
 
     const openBottomSheet = (screen) => {
@@ -335,9 +337,7 @@ const ExploreScreen = () => {
     
     const Screen2 = () => {
       return(
-        // <PopularPlaces/>
         <Popular/>
-        // <Chee/>
       );
     };
     
