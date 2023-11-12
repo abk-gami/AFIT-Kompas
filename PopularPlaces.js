@@ -91,22 +91,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title:{
-        fontWeight: '900',
-        fontSize: 20
+        fontSize: 20,
+        textAlign: "center",
+        fontFamily: 'Poppins_700Bold' ,
     },
     body :{
-        fontWeight: '500',
         fontSize: 16,
+        textAlign: "center",
+        fontFamily: 'Poppins_600SemiBold_Italic' ,
     }, 
     other: {
-        fontSize: 14,
+        fontSize: 15,
+        textAlign: "center",
+        fontFamily: 'Poppins_400Regular' ,
     },
     scroll: {
         flex: 1,
     },
     bts:{
+        fontFamily: 'Poppins_700Bold',
         color:'#fff',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         fontSize: 17,
         alignSelf: 'center',
       }
