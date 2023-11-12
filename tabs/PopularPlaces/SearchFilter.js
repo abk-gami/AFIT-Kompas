@@ -85,14 +85,17 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         fontSize: 20,
         textAlign: "center",
+        fontFamily: 'sans-serif' ,
     },
     body :{
-        fontWeight: '600',
+        fontWeight: '700',
         fontSize: 16,
         textAlign: "center",
+        fontFamily: 'sans-serif' ,
     }, 
     other: {
         fontSize: 15,
         textAlign: "center",
+        fontFamily: 'sans-serif' ,
     },
 })
