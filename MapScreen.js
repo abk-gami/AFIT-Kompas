@@ -87,8 +87,10 @@ const ExploreScreen = () => {
 
   //Breaking News
   const [breaking, setBreaking] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const breakingNews = firebase.firestore().collection('BreakingNews');
   useEffect(() => {
+    setIsLoading(true);
       async function fetchData(){
           breakingNews
           .onSnapshot(
@@ -105,7 +107,8 @@ const ExploreScreen = () => {
                           longitude,
                       })
                   })
-                  setBreaking(breaking)
+                  setBreaking(breaking);
+                  setIsLoading(false);
                 }
                 )
                 
@@ -143,7 +146,6 @@ const ExploreScreen = () => {
 
   //Lecture Room
   const [lecture, setLecture] = useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
   const LectureRoom = firebase.firestore().collection('LectureRoom').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
@@ -287,17 +289,17 @@ const ExploreScreen = () => {
       //   setIsOpen(false);
       // }, 100);
     }
-    const LoadingAnimation = () => {
-      return (
-        <ActivityIndicator size="large" color="#ffffff" />
-      );
-    };
+    // const LoadingAnimation = () => {
+    //   return (
+    //     <ActivityIndicator size="large" color="#ffffff" />
+    //   );
+    // };
 
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
-    useEffect(() => {
-      setTimeout(() => setShow(true), 3000);
-    }, []);
+    // useEffect(() => {
+    //   setTimeout(() => setShow(true), 3000);
+    // }, []);
 //Bottom Sheet Screens
     const Screen1 = () => {
       return (
