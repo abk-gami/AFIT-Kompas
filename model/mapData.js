@@ -40,7 +40,7 @@ const mapData = () => {
         longitude:    7.439118488008261,
       },
       title: 'AFIT Gate',
-      description: 'Make sure you are holding your I.D card or any means of identification',
+      description: 'College Gate',
       image: Images[1],
     },
     {
