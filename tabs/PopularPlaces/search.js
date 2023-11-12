@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native'
+import { StyleSheet, TextInput, View, Text, ActivityIndicator } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
@@ -6,11 +6,13 @@ import {firebase} from './config';
 import SearchFilter from './SearchFilter'
 const Popular = () => {
   const [input, setInput] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   const [popular, setPopular] = useState([]);
   const popularPlace = firebase.firestore().collection('Popular').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
+        setLoading(true)
           popularPlace
           .onSnapshot(
               querySnapshot => {
@@ -34,10 +36,18 @@ const Popular = () => {
 
       }
       fetchData();
+      setLoading(false)
   }, [])
+  if(isLoading) {
+    return (
+         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+             <ActivityIndicator/>
+         </View>
+    )
+   }
   return (
     <View style={{flex: 1}}>
-            <Text style={styles.bts}>POPULAR PLACES</Text>
+            <Text style={styles.bts}>PLACES</Text>
           <View style={styles.searchBox1}>
     <TextInput 
     value={input}
@@ -81,6 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 17,
     alignSelf: 'center',
+    fontFamily: 'sans-serif' ,
   }
 })
 
