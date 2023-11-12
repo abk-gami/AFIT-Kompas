@@ -1,14 +1,15 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native'
+import { StyleSheet, TextInput, View, Text, ActivityIndicator } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
 import SearchFilter from './SearchFilter'
 const Accomodation = () => {
   const [input, setInput] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [hostel, setHostel] = useState([]);
   const hostelAccomodation = firebase.firestore().collection('Accomodation').orderBy("id", "asc");
   useEffect(() => {
+    setIsLoading(true);
       async function fetchData(){
           hostelAccomodation
           .onSnapshot(
@@ -26,7 +27,8 @@ const Accomodation = () => {
                           find,
                       })
                   })
-                  setHostel(hostel)
+                  setHostel(hostel);
+                  setIsLoading(false);
               }
           )
 
