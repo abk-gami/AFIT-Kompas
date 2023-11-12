@@ -681,7 +681,7 @@ const ExploreScreen = () => {
          onPress={() => openBottomSheet(Screen2)}
         >
           <Text style={styles.text}> 
-          Popular Places</Text>
+          Places</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -886,6 +886,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 17,
     color: '#001b7c',
+    fontFamily: 'sans-serif' ,
   },
   scrollView: {
     position: "absolute",
