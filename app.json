@@ -2,7 +2,7 @@
   "expo": {
     "name": "AFIT-Compass",
     "slug": "AFIT-Compass",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/app-icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +23,7 @@
             "apiKey": "AIzaSyCFgrivo6_Va0_t8BS8Mi2rfuFCC9cduQg"
         }
       },
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/app-icon.png"
