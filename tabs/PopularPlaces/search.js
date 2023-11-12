@@ -47,7 +47,7 @@ const Popular = () => {
    }
   return (
     <View style={{flex: 1}}>
-            <Text style={styles.bts}>PLACES</Text>
+            <Text style={styles.bts}>POPULAR PLACES</Text>
           <View style={styles.searchBox1}>
     <TextInput 
     value={input}
@@ -55,7 +55,7 @@ const Popular = () => {
       placeholder="Where You Dey Find?"
       placeholderTextColor="#717172"
       autoCapitalize="none"
-      style={{flex:1,padding:0, fontSize: 20}}
+      style={{flex:1, padding:0, fontSize: 20, fontFamily: 'Poppins_600SemiBold_Italic'}}
     />
     <Ionicons name="ios-search" size={20} />
   </View>
@@ -88,10 +88,9 @@ const styles = StyleSheet.create({
   },
   bts:{
     color:'#fff',
-    fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 18,
     alignSelf: 'center',
-    fontFamily: 'sans-serif' ,
+    fontFamily: 'Poppins_700Bold'
   }
 })
 
