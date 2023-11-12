@@ -82,17 +82,18 @@ const styles = StyleSheet.create({
         flex:1
     },
     title:{
-        fontWeight: '900',
         fontSize: 20,
         textAlign: "center",
+        fontFamily: 'Poppins_700Bold' ,
     },
     body :{
-        fontWeight: '600',
         fontSize: 16,
         textAlign: "center",
+        fontFamily: 'Poppins_600SemiBold_Italic' ,
     }, 
     other: {
         fontSize: 15,
         textAlign: "center",
+        fontFamily: 'Poppins_400Regular' ,
     },
 })
