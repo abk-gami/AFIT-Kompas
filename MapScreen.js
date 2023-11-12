@@ -87,11 +87,11 @@ const ExploreScreen = () => {
 
   //Breaking News
   const [breaking, setBreaking] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const breakingNews = firebase.firestore().collection('BreakingNews');
   useEffect(() => {
-    setIsLoading(true);
       async function fetchData(){
+        setIsLoading(true);
           breakingNews
           .onSnapshot(
               querySnapshot => {
@@ -265,7 +265,6 @@ const ExploreScreen = () => {
 
     //Bottom Sheet
     const [isOpen, setIsOpen] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [currentScreen, setCurrentScreen] = useState(Screen1);
 
 
