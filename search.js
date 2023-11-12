@@ -46,7 +46,7 @@ const Search = () => {
       placeholder="Where You Dey Find?"
       placeholderTextColor="#717172"
       autoCapitalize="none"
-      style={{flex:1,padding:0, fontSize: 20}}
+      style={{flex:1, padding:0, fontSize: 20, fontFamily: 'Poppins_600SemiBold_Italic'}}
     />
     <Ionicons name="ios-search" size={20} />
   </View>
@@ -79,9 +79,9 @@ const styles = StyleSheet.create({
   },
   bts:{
     color:'#fff',
-    fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 18,
     alignSelf: 'center',
+    fontFamily: 'Poppins_700Bold'
   }
 })
 
