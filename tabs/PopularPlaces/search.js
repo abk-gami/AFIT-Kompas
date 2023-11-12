@@ -1,19 +1,18 @@
-import { StyleSheet, TextInput, View, Text, ActivityIndicator } from 'react-native'
+import { StyleSheet, TextInput, View, Text, ActivityIndicator, FlatList } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
-
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 import SearchFilter from './SearchFilter'
 const Popular = () => {
   const [input, setInput] = useState("");
-  const [isLoading, setLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [popular, setPopular] = useState([]);
   const popularPlace = firebase.firestore().collection('Popular').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
-        setLoading(true)
-          popularPlace
+        setIsLoading(true);
+        popularPlace
           .onSnapshot(
               querySnapshot => {
                   const popular = []
@@ -31,20 +30,13 @@ const Popular = () => {
                   
                   })
                   setPopular(popular)
+                  setIsLoading(false);
               }
           )
 
       }
       fetchData();
-      setLoading(false)
   }, [])
-  if(isLoading) {
-    return (
-         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-             <ActivityIndicator/>
-         </View>
-    )
-   }
   return (
     <View style={{flex: 1}}>
             <Text style={styles.bts}>POPULAR PLACES</Text>
@@ -61,8 +53,43 @@ const Popular = () => {
   </View>
 
   <SearchFilter data={popular} input={input} setInput={setInput}  />
+  {isLoading &&      
+       <ActivityIndicator color='#ffffff' size="170px"/>
+      
+      
+    }
+      {!isLoading && (
+        <FlatList
+          data={popular}
+          renderItem={({ item }) => (
+            <Text style={{fontSize: 0,}}>
+              {item.title} - {item.body}
+            </Text>
+          )}
+        />
+      )}
     </View>
+    
   );
+  // return (
+  //   <View>
+  //     {isLoading &&      
+  //      <ActivityIndicator color='#ff4500' size="large"/>
+      
+      
+  //   }
+  //     {!isLoading && (
+  //       <FlatList
+  //         data={popular}
+  //         renderItem={({ item }) => (
+  //           <Text>
+  //             {item.title} - {item.body}
+  //           </Text>
+  //         )}
+  //       />
+  //     )}
+  //   </View>
+  // );
 }
 
 export default Popular
