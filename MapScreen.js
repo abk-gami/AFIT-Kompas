@@ -644,7 +644,7 @@ const ExploreScreen = () => {
       <ScrollView
         horizontal
         scrollEventThrottle={1}
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={true}
         height={50}
         style={styles.chipsScrollView}
         contentInset={{ // iOS only
@@ -681,7 +681,7 @@ const ExploreScreen = () => {
          onPress={() => openBottomSheet(Screen2)}
         >
           <Text style={styles.text}> 
-          Places</Text>
+         Popular Places</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -883,10 +883,10 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   text:{
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: 17,
     color: '#001b7c',
-    fontFamily: 'sans-serif' ,
+    fontFamily: 'Poppins_600SemiBold'
   },
   scrollView: {
     position: "absolute",
@@ -927,11 +927,12 @@ const styles = StyleSheet.create({
   cardtitle: {
     fontSize: 12,
     marginTop: 5,
-    fontWeight: "bold",
+    fontFamily: 'Poppins_600SemiBold'
   },
   cardDescription: {
     fontSize: 12,
     color: "#444",
+    fontFamily: 'Poppins_400Regular_Italic'
   },
   markerWrap: {
     alignItems: "center",
@@ -983,22 +984,24 @@ innerContainer: {
     alignItems: 'center',
 },
 title:{
-    fontWeight: 'bold',
-    fontSize: 19, 
-    textAlign: "center",
+  fontSize: 20,
+  textAlign: "center",
+  fontFamily: 'Poppins_700Bold' ,
 },
 body :{
-  fontWeight: '600',
   fontSize: 16,
   textAlign: "center",
+  fontFamily: 'Poppins_600SemiBold_Italic' ,
 }, 
 other: {
   fontSize: 15,
   textAlign: "center",
+  fontFamily: 'Poppins_400Regular' ,
 },
 bts:{
   color:'#fff',
-  fontWeight: 'bold',
+  fontFamily: 'Poppins_700Bold' ,
+  // fontWeight: 'bold',
   fontSize: 17,
   alignSelf: 'center',
 },
