@@ -54,25 +54,25 @@ const App = () => {
   });
 
   // if (!fontsLoaded) {
-  //   return null;
+  //   return <OnboardingScreen/>;
   // }
-  return (
-    <NavigationContainer>
-    <AppStack.Navigator>
-      <AppStack.Screen name='Onboarding' component={OnboardingScreen}
-       options={{headerShown: false,}}
-       />
-      <AppStack.Screen name='Maps' component={MapScreen}
-                 options={{headerShown: false}}
-                 />
-    </AppStack.Navigator>
-  </NavigationContainer>
-  );
+  // return <MapScreen/>
+  
   // return (
-  //   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-  //     <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40 }}>Inter Black</Text>
-  //   </View>
+  //   <NavigationContainer>
+  //   <AppStack.Navigator>
+  //     <AppStack.Screen name='Onboarding' component={OnboardingScreen}
+  //      options={{headerShown: false,}}
+  //      />
+  //     <AppStack.Screen name='Maps' component={MapScreen}
+  //                options={{headerShown: false}}
+  //                />
+  //   </AppStack.Navigator>
+  // </NavigationContainer>
   // );
+  return (
+    <MapScreen/>
+  );
 
 }
 
