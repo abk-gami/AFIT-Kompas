@@ -1,18 +1,17 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native'
+import { StyleSheet, TextInput, View, Text,  ActivityIndicator, FlatList } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
-
 import SearchFilter from './SearchFilter'
+
 const Search = () => {
   const [input, setInput] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const todoRef = firebase.firestore().collection('location').orderBy("id", "asc");
-  
-
   useEffect(() => {
       async function fetchData(){
+        setIsLoading(true);
           todoRef
           .onSnapshot(
               querySnapshot => {
@@ -30,6 +29,7 @@ const Search = () => {
                       })
                   })
                   setUsers(users)
+                  setIsLoading(false);
               }
           )
 
@@ -52,6 +52,19 @@ const Search = () => {
   </View>
 
   <SearchFilter data={users} input={input} setInput={setInput}  />
+  {isLoading &&      
+       <ActivityIndicator color='#ffffff' size="170px"/>
+    }
+      {!isLoading && (
+        <FlatList
+          data={users}
+          renderItem={({ item }) => (
+            <Text style={{fontSize: 0,}}>
+              {item.title} - {item.body}
+            </Text>
+          )}
+        />
+      )}
     </View>
   );
 }
