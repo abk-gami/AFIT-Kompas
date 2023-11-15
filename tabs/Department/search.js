@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native'
+import { StyleSheet, TextInput, View, Text, ActivityIndicator, FlatList } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
@@ -6,11 +6,12 @@ import {firebase} from './config';
 import SearchFilter from './SearchFilter'
 const Department = () => {
   const [input, setInput] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const [department, setDepartment] = useState([]);
   const departmentBuilding = firebase.firestore().collection('Department').orderBy("id", "asc");
   useEffect(() => {
       async function fetchData(){
+        setIsLoading(true);
           departmentBuilding
           .onSnapshot(
               querySnapshot => {
@@ -28,6 +29,7 @@ const Department = () => {
                       })
                   })
                   setDepartment(department)
+                  setIsLoading(false);
               }
           )
 
@@ -50,6 +52,20 @@ const Department = () => {
   </View>
 
   <SearchFilter data={department} input={input} setInput={setInput}  />
+
+  {isLoading &&      
+       <ActivityIndicator color='#ffffff' size="170px"/>
+    }
+      {!isLoading && (
+        <FlatList
+          data={department}
+          renderItem={({ item }) => (
+            <Text style={{fontSize: 0,}}>
+              {item.title} - {item.body}
+            </Text>
+          )}
+        />
+      )}
     </View>
   );
 }
