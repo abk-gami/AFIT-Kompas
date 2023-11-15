@@ -86,35 +86,35 @@ const ExploreScreen = () => {
   }, [])
 
   //Breaking News
-  const [breaking, setBreaking] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const breakingNews = firebase.firestore().collection('BreakingNews');
-  useEffect(() => {
-      async function fetchData(){
-        setIsLoading(true);
-          breakingNews
-          .onSnapshot(
-              querySnapshot => {
-                  const breaking = []
-                  querySnapshot.forEach((doc) => {
-                      const {title, body, other, latitude, longitude} = doc.data()
-                      breaking.push({
-                          id: doc.id,
-                          title,
-                          body,
-                          other,
-                          latitude,
-                          longitude,
-                      })
-                  })
-                  setBreaking(breaking);
-                  setIsLoading(false);
-                }
-                )
+  // const [breaking, setBreaking] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const breakingNews = firebase.firestore().collection('BreakingNews');
+  // useEffect(() => {
+  //     async function fetchData(){
+  //       setIsLoading(true);
+  //         breakingNews
+  //         .onSnapshot(
+  //             querySnapshot => {
+  //                 const breaking = []
+  //                 querySnapshot.forEach((doc) => {
+  //                     const {title, body, other, latitude, longitude} = doc.data()
+  //                     breaking.push({
+  //                         id: doc.id,
+  //                         title,
+  //                         body,
+  //                         other,
+  //                         latitude,
+  //                         longitude,
+  //                     })
+  //                 })
+  //                 setBreaking(breaking);
+  //                 setIsLoading(false);
+  //               }
+  //               )
                 
-              }
-      fetchData();
-  }, [])
+  //             }
+  //     fetchData();
+  // }, [])
 //Popular
   const [popular, setPopular] = useState([]);
   const popularPlace = firebase.firestore().collection('Popular');
@@ -172,7 +172,6 @@ const ExploreScreen = () => {
                   
                 }
                 fetchData();
-                setIsLoading(false);
   }, [])
 
   // function printTitle(title) {
@@ -301,10 +300,53 @@ const ExploreScreen = () => {
     // }, []);
 //Bottom Sheet Screens
     const Screen1 = () => {
+      const [breaking, setBreaking] = useState([]);
+      const [isLoading, setIsLoading] = useState(true);
+      const breakingNews = firebase.firestore().collection('BreakingNews');
+      useEffect(() => {
+          async function fetchData(){
+            setIsLoading(true);
+            breakingNews
+              .onSnapshot(
+                  querySnapshot => {
+                      const breaking = []
+                      querySnapshot.forEach((doc) => {
+                          const {title, body, other, latitude, longitude} = doc.data()
+                          breaking.push({
+                              id: doc.id,
+                              title,
+                              body,
+                              other,
+                              latitude,
+                              longitude,
+                          })
+                      })
+                      setBreaking(breaking);
+                      setIsLoading(false);
+                    }
+                    )
+                    
+                  }
+          fetchData();
+      }, [])
       return (
         <View style={styles.ad}>
           <Text style={styles.bts}>BREAKING NEWS</Text>
-            <FlatList
+
+          {isLoading &&      
+       <ActivityIndicator color='#ffffff' size="170px"/>
+    }
+
+{!isLoading && (
+        // <FlatList
+        //   data={breaking}
+        //   renderItem={({ item }) => (
+        //     <Text style={{fontSize: 0,}}>
+        //       {item.title} - {item.body}
+        //     </Text>
+        //   )}
+        // />
+        <FlatList
         style={{height: '100%'}}
         data={breaking}
         numColumns={1}
@@ -323,13 +365,10 @@ const ExploreScreen = () => {
                     </Pressable>
                     )}
                     />
-          {/* <BannerAd
-      unitId={adUnitId}
-      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly: true,
-      }}
-    /> */}
+      )}
+           
+    
+      
         </View>
       );
     };
