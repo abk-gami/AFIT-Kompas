@@ -2,8 +2,8 @@ import { StyleSheet, TextInput, View, Text, ActivityIndicator, FlatList } from '
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
 import SearchFilter from './SearchFilter'
+
 const Popular = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -53,10 +53,9 @@ const Popular = () => {
   </View>
 
   <SearchFilter data={popular} input={input} setInput={setInput}  />
+
   {isLoading &&      
        <ActivityIndicator color='#ffffff' size="170px"/>
-      
-      
     }
       {!isLoading && (
         <FlatList
@@ -68,28 +67,10 @@ const Popular = () => {
           )}
         />
       )}
+      
     </View>
     
   );
-  // return (
-  //   <View>
-  //     {isLoading &&      
-  //      <ActivityIndicator color='#ff4500' size="large"/>
-      
-      
-  //   }
-  //     {!isLoading && (
-  //       <FlatList
-  //         data={popular}
-  //         renderItem={({ item }) => (
-  //           <Text>
-  //             {item.title} - {item.body}
-  //           </Text>
-  //         )}
-  //       />
-  //     )}
-  //   </View>
-  // );
 }
 
 export default Popular
