@@ -58,21 +58,21 @@ const App = () => {
   // }
   // return <MapScreen/>
   
-  // return (
-  //   <NavigationContainer>
-  //   <AppStack.Navigator>
-  //     <AppStack.Screen name='Onboarding' component={OnboardingScreen}
-  //      options={{headerShown: false,}}
-  //      />
-  //     <AppStack.Screen name='Maps' component={MapScreen}
-  //                options={{headerShown: false}}
-  //                />
-  //   </AppStack.Navigator>
-  // </NavigationContainer>
-  // );
   return (
-    <MapScreen/>
+    <NavigationContainer>
+    <AppStack.Navigator>
+      <AppStack.Screen name='Maps' component={MapScreen}
+                 options={{headerShown: false}}
+                 />
+      <AppStack.Screen name='Onboarding' component={OnboardingScreen}
+       options={{headerShown: false,}}
+       />
+    </AppStack.Navigator>
+  </NavigationContainer>
   );
+  // return (
+  //   <MapScreen/>
+  // );
 
 }
 
