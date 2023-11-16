@@ -16,6 +16,7 @@ import {
   Platform,
   StatusBar,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
@@ -53,7 +54,7 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-1880381343731142/5547595364';
 
 
-const ExploreScreen = () => {
+const ExploreScreen = ({navigation}) => {
 
   
   // FireBase
@@ -680,6 +681,8 @@ const ExploreScreen = () => {
         {/* search button at the top */}
       <TouchableOpacity
       onPress={() => openBottomSheet(Screen6)}
+      // onLongPress={()=> Alert.alert('abk')}
+      onLongPress={()=> navigation.replace('Onboarding')}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
         <Text style={styles.text}> AFIT Guide </Text>
