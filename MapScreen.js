@@ -28,6 +28,7 @@ import Eatery from "./tabs/Eatery/search";
 import Popular from "./tabs/PopularPlaces/search";
 import Accomodation from "./tabs/Accomodation/search";
 import Department from "./tabs/Department/search";
+import Breaking from "./tabs/Breaking/search";
 import Search from "./search";
 import BottomSheet, {
   BottomSheetView,
@@ -300,76 +301,79 @@ const ExploreScreen = () => {
     // }, []);
 //Bottom Sheet Screens
     const Screen1 = () => {
-      const [breaking, setBreaking] = useState([]);
-      const [isLoading, setIsLoading] = useState(true);
-      const breakingNews = firebase.firestore().collection('BreakingNews');
-      useEffect(() => {
-          async function fetchData(){
-            setIsLoading(true);
-            breakingNews
-              .onSnapshot(
-                  querySnapshot => {
-                      const breaking = []
-                      querySnapshot.forEach((doc) => {
-                          const {title, body, other, latitude, longitude} = doc.data()
-                          breaking.push({
-                              id: doc.id,
-                              title,
-                              body,
-                              other,
-                              latitude,
-                              longitude,
-                          })
-                      })
-                      setBreaking(breaking);
-                      setIsLoading(false);
-                    }
-                    )
+//       const [breaking, setBreaking] = useState([]);
+//       const [isLoading, setIsLoading] = useState(true);
+//       const breakingNews = firebase.firestore().collection('BreakingNews');
+//       useEffect(() => {
+//           async function fetchData(){
+//             setIsLoading(true);
+//             breakingNews
+//               .onSnapshot(
+//                   querySnapshot => {
+//                       const breaking = []
+//                       querySnapshot.forEach((doc) => {
+//                           const {title, body, other, latitude, longitude} = doc.data()
+//                           breaking.push({
+//                               id: doc.id,
+//                               title,
+//                               body,
+//                               other,
+//                               latitude,
+//                               longitude,
+//                           })
+//                       })
+//                       setBreaking(breaking);
+//                       setIsLoading(false);
+//                     }
+//                     )
                     
-                  }
-          fetchData();
-      }, [])
-      return (
-        <View style={styles.ad}>
-          <Text style={styles.bts}>BREAKING NEWS</Text>
+//                   }
+//           fetchData();
+//       }, [])
+//       return (
+//         <View style={styles.ad}>
+//           <Text style={styles.bts}>BREAKING NEWS</Text>
 
-          {isLoading &&      
-       <ActivityIndicator color='#ffffff' size="170px"/>
-    }
+//           {isLoading &&      
+//        <ActivityIndicator color='#ffffff' size="170px"/>
+//     }
 
-{!isLoading && (
-        // <FlatList
-        //   data={breaking}
-        //   renderItem={({ item }) => (
-        //     <Text style={{fontSize: 0,}}>
-        //       {item.title} - {item.body}
-        //     </Text>
-        //   )}
-        // />
-        <FlatList
-        style={{height: '100%'}}
-        data={breaking}
-        numColumns={1}
-        renderItem={({item}) => (
-          <Pressable
-          style={styles.pressable}
-          onPress= {closeIt}
+// {!isLoading && (
+//         // <FlatList
+//         //   data={breaking}
+//         //   renderItem={({ item }) => (
+//         //     <Text style={{fontSize: 0,}}>
+//         //       {item.title} - {item.body}
+//         //     </Text>
+//         //   )}
+//         // />
+//         <FlatList
+//         style={{height: '100%'}}
+//         data={breaking}
+//         numColumns={1}
+//         renderItem={({item}) => (
+//           <Pressable
+//           style={styles.pressable}
+//           onPress= {closeIt}
           
-          >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.body}>{item.body}</Text>
-                    <Text style={styles.other}>{item.other}</Text>
+//           >
+//                 <View style={styles.innerContainer}>
+//                     <Text style={styles.title}>{item.title}</Text>
+//                     <Text style={styles.body}>{item.body}</Text>
+//                     <Text style={styles.other}>{item.other}</Text>
 
-                    </View>
-                    </Pressable>
-                    )}
-                    />
-      )}
+//                     </View>
+//                     </Pressable>
+//                     )}
+//                     />
+//       )}
            
     
       
-        </View>
+//         </View>
+      // );
+      return(
+        <Breaking/>
       );
     };
 
