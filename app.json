@@ -4,7 +4,7 @@
     "slug": "AFIT-Compass",
     "version": "1.3.1",
     "orientation": "portrait",
-    "icon": "./assets/app-icon.jpg",
+    "icon": "./assets/app-icon.png",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": [
       "**/*"
@@ -14,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/app-icon.jpg",
+        "foregroundImage": "./assets/app-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.abkgami.afitCompass",
@@ -23,10 +23,10 @@
             "apiKey": "AIzaSyCFgrivo6_Va0_t8BS8Mi2rfuFCC9cduQg"
         }
       },
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
-      "favicon": "./assets/app-icon.jpg"
+      "favicon": "./assets/app-icon.png"
     },
     "extra": {
       "eas": {
