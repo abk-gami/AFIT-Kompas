@@ -1,7 +1,5 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect, useRef } from 'react';
-import openMap from 'react-native-open-maps';
-import Chee from "./Chee";
 import {
   StyleSheet,
   Text,
@@ -19,7 +17,6 @@ import {
   Alert,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import MapView, {PROVIDER_GOOGLE, Marker} from "react-native-maps";
 import SearchFilter from "./SearchFilter";
