@@ -1,5 +1,4 @@
-
-  import { StyleSheet, View,  StatusBar, Text } from 'react-native'
+import { StyleSheet, View,  StatusBar, Text } from 'react-native'
 import React, { useEffect } from 'react';
 import 'expo-dev-client';
 import { NavigationContainer } from '@react-navigation/native';
