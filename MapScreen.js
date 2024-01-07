@@ -708,7 +708,7 @@ const ExploreScreen = ({navigation}) => {
             {category.icon}
             <Text >{category.name}</Text>
           </TouchableOpacity>
-        ))} */}
+        ))} */} 
 
 
         <TouchableOpacity
