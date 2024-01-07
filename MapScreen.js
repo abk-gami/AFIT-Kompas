@@ -758,7 +758,7 @@ const ExploreScreen = ({navigation}) => {
         </TouchableOpacity>
 
 
-      </ScrollView> 
+      </ScrollView>  
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
