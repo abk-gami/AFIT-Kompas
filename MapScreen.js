@@ -662,7 +662,7 @@ const ExploreScreen = ({navigation}) => {
              >
               <Animated.View style={[styles.markerWrap, opacityStyle]}>
                 {/* <Animated.Image
-                  source={require('./assets/map_marker.png')}
+                  source={require('./assets/map_marker.png')} 
                   style={[styles.marker, scaleStyle]}
                   resizeMode="cover"
                 /> */}
