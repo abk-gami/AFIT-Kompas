@@ -775,7 +775,7 @@ const ExploreScreen = ({navigation}) => {
           right: SPACING_FOR_CARD_INSET
         }}
         contentContainerStyle={{
-          paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
+          paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0 
         }}
         onScroll={Animated.event(
           [
