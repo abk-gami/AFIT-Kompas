@@ -17,7 +17,7 @@
         "foregroundImage": "./assets/app-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.abkgami.afitCompass",
+      "package": "com.gami.afitCompass",
       "config": {
         "googleMaps": {
             "apiKey": "AIzaSyCFgrivo6_Va0_t8BS8Mi2rfuFCC9cduQg"
