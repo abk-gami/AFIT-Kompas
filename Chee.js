@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 export default Chee;
 // <BottomSheetModalProvider>
 // <BottomSheetModal
-//    ref={bottomSheetModalRef}
+//    ref={bottomSheetModalRef} 
 //    index={1}
 //    snapPoints={snapPoints}
 //    backgroundStyle={{ borderRadius: 30, backgroundColor: '#001b7c' }}
