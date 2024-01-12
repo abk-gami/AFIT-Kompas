@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 });
 
 export default Chee;
-// <BottomSheetModalProvider>
+// <BottomSheetModalProvider> 
 // <BottomSheetModal
 //    ref={bottomSheetModalRef} 
 //    index={1}
