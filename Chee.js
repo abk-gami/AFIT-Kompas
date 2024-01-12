@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 
 export default Chee;
 // <BottomSheetModalProvider> 
-// <BottomSheetModal
+// <BottomSheetModal 
 //    ref={bottomSheetModalRef} 
 //    index={1}
 //    snapPoints={snapPoints}
