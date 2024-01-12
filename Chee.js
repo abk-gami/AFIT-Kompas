@@ -7,7 +7,7 @@ import React, { useCallback, useRef, useMemo } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-const Chee = () => {
+const Chee = () => { 
   // hooks
 //   const sheetRef = useRef<BottomSheet>(null);
 const sheetRef = useRef(null);
