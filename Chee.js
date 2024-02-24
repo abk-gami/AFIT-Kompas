@@ -1,4 +1,4 @@
-// "config": {  
+// "config": {   
 //     "googleMaps": {    
 //       "apiKey": "AIzaSyCFgrivo6_Va0_t8BS8Mi2rfuFCC9cduQg"
 //     }  
