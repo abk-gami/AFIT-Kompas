@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View, Text, ActivityIndicator, FlatList } from '
 import React, {useRef, useState, useEffect} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {firebase} from './config';  
-
+ 
 import SearchFilter from './SearchFilter'
 const Eatery = () => {
   const [input, setInput] = useState("");
