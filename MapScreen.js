@@ -682,7 +682,7 @@ const ExploreScreen = ({navigation}) => {
       onLongPress={()=> navigation.replace('Onboarding')}
        style={styles.searchBox}>
       <Ionicons name="ios-search" size={20} color={'#001b7c'} />
-        <Text style={styles.text}> AFIT Guide </Text>
+        {/* <Text style={styles.text}> AFIT Guide </Text> */}
       </TouchableOpacity>
 
       <ScrollView
