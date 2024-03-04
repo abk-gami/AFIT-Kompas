@@ -1,13 +1,13 @@
-// "config": {
-//     "googleMaps": {
+// "config": {   
+//     "googleMaps": {    
 //       "apiKey": "AIzaSyCFgrivo6_Va0_t8BS8Mi2rfuFCC9cduQg"
-//     }
-//   }
+//     }  
+//   } 
 import React, { useCallback, useRef, useMemo } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-const Chee = () => {
+const Chee = () => { 
   // hooks
 //   const sheetRef = useRef<BottomSheet>(null);
 const sheetRef = useRef(null);
@@ -79,9 +79,9 @@ const styles = StyleSheet.create({
 });
 
 export default Chee;
-// <BottomSheetModalProvider>
-// <BottomSheetModal
-//    ref={bottomSheetModalRef}
+// <BottomSheetModalProvider>  
+// <BottomSheetModal 
+//    ref={bottomSheetModalRef} 
 //    index={1}
 //    snapPoints={snapPoints}
 //    backgroundStyle={{ borderRadius: 30, backgroundColor: '#001b7c' }}
@@ -92,5 +92,5 @@ export default Chee;
 //    enablePanDownToClose={true}
 //  >
 //             {currentScreen}
-//  </BottomSheetModal>
+//  </BottomSheetModal> 
 // </BottomSheetModalProvider>
